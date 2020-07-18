@@ -31,8 +31,12 @@ public class PlayerMover : MonoBehaviour {
 	bool isAttackMelee;
 	bool isDash;
 
+	float defaultRunSpeed;
+
 	void Awake() {
 		mouseRaycastLayer = 1 << mouseRaycastLayer;
+
+		defaultRunSpeed = cc.strafeSpeed.runningSpeed;
 	}
 
 	void Start() {
@@ -53,6 +57,11 @@ public class PlayerMover : MonoBehaviour {
 
 	void OnAnimatorMove() {
 		cc.ControlAnimatorRootMotion(); // handle root motion animations 
+	}
+
+	public void SetRageBuff(float multiplier) {
+		anim.speed = multiplier;
+		cc.strafeSpeed.runningSpeed = defaultRunSpeed * multiplier;
 	}
 
 	void ProcessInput() {

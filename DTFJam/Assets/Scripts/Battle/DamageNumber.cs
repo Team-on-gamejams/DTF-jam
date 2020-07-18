@@ -4,29 +4,15 @@ using UnityEngine;
 using TMPro;
 
 public class DamageNumber : MonoBehaviour {
-	const float minFontSize = 30.0f;
-	const float maxFontSize = 50.0f;
-	const float minCombo = 1.0f;
-	const float maxCombo = 10.0f - minCombo;
-
-	readonly Color x10Color = Color.red;
-	readonly Color x5Color = Color.yellow;
-	readonly Color defaultColor = new Color(0.4f, 0.4f, 0.4f);
+	
 
 	[SerializeField] TextMeshProUGUI damageTextField;
 
 	public void StartSequence(int currCombo) {
 		damageTextField.text = $"x{currCombo}";
 
-		if(currCombo >= 10)
-			damageTextField.color = x10Color;
-		else if (currCombo >= 5)
-			damageTextField.color = x5Color;
-		else
-			damageTextField.color =  defaultColor;
-
-		damageTextField.fontSize = Mathf.Lerp(minFontSize, maxFontSize, (currCombo - minCombo) / maxCombo);
-
+		PlayerRageBar.SetComboColor(currCombo, damageTextField);
+		PlayerRageBar.SetComboSize(currCombo, damageTextField);
 		damageTextField.transform.localScale = Vector3.one * 0.7f;
 
 		Destroy(gameObject, 0.7f);
