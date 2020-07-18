@@ -2,20 +2,34 @@
 using UnityEngine;
 
 public class Player : MonoBehaviour {
+	[Header("Balance")]
+	[Space]
 	[SerializeField] [MinMaxSlider(0, 5, false)] Vector2 rageBuffs = new Vector2(1, 2);
+	[SerializeField] float dashStaminaPrice = 50;
+
+	[Header("Anims")]
+	[Space]
+	[SerializeField] int dieAnimationCount = 10;
+	[SerializeField] int cameraAnimsCount = 6;
+	[SerializeField] AudioClip dieClip = null;
+	[SerializeField] AudioClip spawnClip = null;
 
 	[Header("Refs")]
 	[Space]
-	[SerializeField] PlayerMover mover = null;
+	public PlayerMover mover = null;
 	[SerializeField] Health health = null;
 	[SerializeField] PlayerTimer timer = null;
 	[SerializeField] PlayerRageBar rageBar = null;
 	[SerializeField] PlayerStaminaBar staminaBar = null;
+	[SerializeField] Animator anim = null;
+	[SerializeField] Animator cameraAnim = null;
 
 	private void Awake() {
 		GameManager.Instance.player = this;
 
 		rageBar.onRageValueChange += OnRageValueChange;
+
+		GameManager.Instance.player.mover.onRespawnEnd += OnRespawnEnd;
 	}
 
 	private void OnDestroy() {
@@ -27,9 +41,55 @@ public class Player : MonoBehaviour {
 		return rageBar.IncreaseComboCounter();
 	}
 
+	public bool TryDash() {
+		if (staminaBar.IsEnoughStamina(dashStaminaPrice)) {
+			staminaBar.DecreaseStamina(dashStaminaPrice);
+
+			return true;
+		}
+		else {
+			//TODO: floating text: not enaugh stamina
+			return false;
+		}
+	}
+
 	void OnRageValueChange() {
 		float currBuff = Mathf.Lerp(rageBuffs.x, rageBuffs.y, rageBar.CurrRagePersent);
 		mover.SetRageBuff(currBuff);
 		staminaBar.regenerationMultiplier = currBuff;
+		mover.dashForceMultiplier = currBuff;
+	}
+
+	void Die() {
+		GameManager.Instance.isPlaying = false;
+		mover.OnDie();
+
+		Destroy(GameManager.Instance.ambient);
+		AudioManager.Instance.Play(dieClip, channel: AudioManager.AudioChannel.Sound);
+
+		anim.SetInteger("DieAnimation", Random.Range(1, dieAnimationCount));
+		cameraAnim.SetInteger("DieAnimation", Random.Range(1, cameraAnimsCount));
+
+		LeanTween.delayedCall(2.5f, () => {
+			anim.SetInteger("DieAnimation", 0);
+			cameraAnim.SetInteger("DieAnimation", 0);
+
+			timer.Init();
+			staminaBar.Init();
+			rageBar.Init();
+			mover.Respawn();
+		});
+
+		LeanTween.delayedCall(4.5f, () => {
+			anim.SetTrigger("IsSpawning");
+		});
+
+		LeanTween.delayedCall(5.0f, () => {
+			AudioManager.Instance.Play(spawnClip, channel: AudioManager.AudioChannel.Sound);
+		});
+	}
+
+	void OnRespawnEnd() {
+		
 	}
 }

@@ -8,10 +8,10 @@ public class TempStart : MonoBehaviour {
 	[SerializeField] AudioClip battleAmbient;
 	[SerializeField] Button btn;
 
-	AudioSource ambient;
-
 	private void Start() {
-		ambient = AudioManager.Instance.PlayLoopFaded(mainMenuAmbient, channel: AudioManager.AudioChannel.Music);
+		OnRespawnEnd();
+
+		GameManager.Instance.player.mover.onRespawnEnd += OnRespawnEnd;
 	}
 
 	public void StartGame() {
@@ -19,11 +19,17 @@ public class TempStart : MonoBehaviour {
 
 		float crossTime = 3.0f;
 
-		AudioManager.Instance.FadeVolume(ambient, 0.0f, crossTime);
-		ambient = AudioManager.Instance.PlayLoopFaded(battleAmbient, fadeTime: crossTime, channel: AudioManager.AudioChannel.Music);
+		AudioManager.Instance.FadeVolume(GameManager.Instance.ambient, 0.0f, crossTime);
+		Destroy(GameManager.Instance.ambient, crossTime + 1.0f);
+		GameManager.Instance.ambient = AudioManager.Instance.PlayFaded(battleAmbient, fadeTime: crossTime, channel: AudioManager.AudioChannel.Music);
 
 		btn.gameObject.SetActive(false);
 
 		GameManager.Instance.isPlaying = true;
+	}
+
+	void OnRespawnEnd() {
+		GameManager.Instance.ambient = AudioManager.Instance.PlayLoopFaded(mainMenuAmbient, channel: AudioManager.AudioChannel.Music);
+		btn.gameObject.SetActive(true);
 	}
 }

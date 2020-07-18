@@ -14,6 +14,7 @@ public class GameManager : Singleton<GameManager> {
 	//Global game data
 	[NonSerialized] public bool isPlaying = false;
 	[NonSerialized] public Player player;
+	[NonSerialized] public AudioSource ambient;
 
 	//Global data
 	public string buildNameString;

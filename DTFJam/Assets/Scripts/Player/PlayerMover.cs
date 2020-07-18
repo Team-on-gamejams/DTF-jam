@@ -5,6 +5,12 @@ using Invector.vCharacterController;
 
 public class PlayerMover : MonoBehaviour {
 	public Action<bool> onChangeControls;   // 0 - keyboard, 1 - gamepad
+	public Action onRespawnEnd;
+
+	[Header("Values")] [Space]
+	[NonSerialized] public float dashForceMultiplier = 1.0f;
+	[SerializeField] float dashForce = 10.0f;
+
 
 	[Header("Mouse pointer")][Space]
 	[SerializeField] /*[GameObjectLayer]*/ int mouseRaycastLayer;
@@ -18,10 +24,13 @@ public class PlayerMover : MonoBehaviour {
 	[Header("Refs")][Space]
 	[SerializeField] Transform mouseRaycastTransform;
 	[SerializeField] Camera mainCamera;
+	[SerializeField] Health health;
+	[SerializeField] Collider collider;
 
 	[Header("This Refs")][Space]
 	[SerializeField] vThirdPersonController cc;
 	[SerializeField] Animator anim;
+	[SerializeField] Rigidbody rb;
 
 	bool isUseGamepadControl;
 	bool isGamepadLookInput;
@@ -30,13 +39,16 @@ public class PlayerMover : MonoBehaviour {
 	Vector3 lookInput;
 	bool isAttackMelee;
 	bool isDash;
+	bool isCurrentlyDashing = false;
 
 	float defaultRunSpeed;
+	Vector3 startPos;
 
 	void Awake() {
 		mouseRaycastLayer = 1 << mouseRaycastLayer;
 
 		defaultRunSpeed = cc.strafeSpeed.runningSpeed;
+		startPos = transform.position;
 	}
 
 	void Start() {
@@ -45,18 +57,40 @@ public class PlayerMover : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		cc.UpdateMotor();               // updates the ThirdPersonMotor methods
-		cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
+		if (!isCurrentlyDashing) {
+			cc.UpdateMotor();               // updates the ThirdPersonMotor methods
+			cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
+		}
+
 		cc.ControlRotationType();       // handle the controller rotation type
 	}
 
 	void Update() {
 		ProcessInput();
-		cc.UpdateAnimator();            // updates the Animator Parameters
+
+		if (!isCurrentlyDashing) {
+			cc.UpdateAnimator();            // updates the Animator Parameters
+		}
 	}
 
 	void OnAnimatorMove() {
 		cc.ControlAnimatorRootMotion(); // handle root motion animations 
+	}
+
+	public void Respawn() {
+		Debug.Log("Respawn");
+		rb.velocity = Vector3.zero;
+		transform.position = startPos;
+
+		LeanTween.delayedCall(0.2f, () => {
+			moveInput = Vector3.zero;
+		});
+	}
+
+	public void OnDie() {
+		moveInput = Vector3.zero;
+		DashEnd();
+		Debug.Log("Player die");
 	}
 
 	public void SetRageBuff(float multiplier) {
@@ -69,7 +103,6 @@ public class PlayerMover : MonoBehaviour {
 		cc.input.z = moveInput.y;
 
 		cc.UpdateMoveDirection(mainCamera.transform);
-
 		if (isUseGamepadControl) {
 			mouseRaycastTransform.position = transform.position + new Vector3(lookInput.x, 0, lookInput.y);
 		}
@@ -99,6 +132,40 @@ public class PlayerMover : MonoBehaviour {
 		isCurrentlyAttack = false;
 	}
 
+	public void DashStart() {
+		cc.input.x = 0;
+		cc.input.z = 0;
+		cc.UpdateMoveDirection(mainCamera.transform);
+		cc.UpdateMotor();               // updates the ThirdPersonMotor methods
+		cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
+		cc.ControlRotationType();       // handle the controller rotation type
+
+		Vector3 dashDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
+
+		var right = mainCamera.transform.right;
+		right.y = 0;
+		var forward = Quaternion.AngleAxis(-90, Vector3.up) * right;
+		dashDirection = (dashDirection.x * right) + (dashDirection.z * forward);
+
+		rb.velocity = dashDirection.normalized * dashForce * dashForceMultiplier;
+
+		health.isCanTakeDamage = false;
+		isCurrentlyDashing = true;
+		collider.enabled = false;
+		rb.useGravity = false;
+	}
+
+	public void DashEnd() {
+		health.isCanTakeDamage = true;
+		rb.velocity = Vector3.zero;
+		isCurrentlyDashing = false;
+		collider.enabled = true;
+		rb.useGravity = true;
+	}
+
+	public void OnSpawnEnd() {
+		onRespawnEnd?.Invoke();
+	}
 	#endregion
 
 	#region Input handling
@@ -137,7 +204,7 @@ public class PlayerMover : MonoBehaviour {
 	public void OnAttackMelee(InputAction.CallbackContext context) {
 		CheckIsUseGamepad(context.control.device);
 
-		if (!GameManager.Instance.isPlaying)
+		if (!GameManager.Instance.isPlaying || isCurrentlyAttack)
 			return;
 
 		isAttackMelee = context.ReadValueAsButton();
@@ -150,11 +217,14 @@ public class PlayerMover : MonoBehaviour {
 	public void OnDash(InputAction.CallbackContext context) {
 		CheckIsUseGamepad(context.control.device);
 
-		if (!GameManager.Instance.isPlaying)
+		if (!GameManager.Instance.isPlaying || isCurrentlyDashing || moveInput.sqrMagnitude <= 0.01f)
 			return;
 
 		isDash = context.ReadValueAsButton();
 
+		if (!isCurrentlyDashing && isDash && context.phase == InputActionPhase.Started && GameManager.Instance.player.TryDash()) {
+			anim.SetTrigger("IsDash");
+		}
 	}
 
 	void CheckIsUseGamepad(InputDevice device) {

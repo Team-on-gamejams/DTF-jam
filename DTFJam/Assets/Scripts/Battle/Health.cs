@@ -6,6 +6,7 @@ using TMPro;
 
 public class Health : MonoBehaviour {
 	public bool isUnderPlayerAttack = false;
+	public bool isCanTakeDamage = true;
 
 	[Header("Hp")] [Space]
 	[SerializeField] float maxHits = 1;
@@ -109,7 +110,7 @@ public class Health : MonoBehaviour {
 	}
 
 	public void GetHit() {
-		if (currHit == 0)
+		if (currHit == 0 || !isCanTakeDamage)
 			return;
 
 		ShowBarIfHided();

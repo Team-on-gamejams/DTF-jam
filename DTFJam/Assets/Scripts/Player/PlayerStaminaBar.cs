@@ -12,6 +12,7 @@ public class PlayerStaminaBar : MonoBehaviour {
 	[SerializeField] float maxStamina = 100;
 	[Space]
 	[SerializeField] float staminaIncreaseTimeout = 0.5f;
+	[SerializeField] float staminaIncreaseTimeoutIfConsumeAll = 1.0f;
 	[SerializeField] float staminaIncreaseSpeed = 10.0f;
 
 	[Header("UI")]
@@ -27,16 +28,13 @@ public class PlayerStaminaBar : MonoBehaviour {
 	float currStaminaIncreaseTimeout;
 
 	private void Awake() {
-		currStamina = maxStamina;
-		currStaminaIncreaseTimeout = staminaIncreaseTimeout;
-
 		barFirst.minValue = minStamina;
 		barFirst.maxValue = maxStamina;
-		barFirst.value = currStamina;
 
 		barSecond.minValue = minStamina;
 		barSecond.maxValue = maxStamina;
-		barSecond.value = currStamina;
+		
+		Init();
 	}
 
 	private void Update() {
@@ -58,26 +56,37 @@ public class PlayerStaminaBar : MonoBehaviour {
 		}
 	}
 
+	public void Init() {
+		currStamina = maxStamina;
+		currStaminaIncreaseTimeout = staminaIncreaseTimeout;
+
+		barFirst.value = currStamina;
+		barSecond.value = currStamina;
+	}
+
 	public bool IsEnoughStamina(float value) {
-		return currStamina >= value;
+		return currStamina != 0;
 	}
 
 	public void DecreaseStamina(float value) {
 		currStamina -= value;
-		currStaminaIncreaseTimeout = 0.0f;
 		
-		if (currStamina < 0) {
-			Debug.LogWarning("Decrease more stamina that curr value");
+		if (currStamina <= 0) {
 			currStamina = 0;
+			currStaminaIncreaseTimeout = -(staminaIncreaseTimeoutIfConsumeAll - staminaIncreaseTimeout);
 		}
-		
+		else {
+			currStaminaIncreaseTimeout = 0.0f;
+		}
+
 		UpdateBar();
 	}
 
 	void UpdateBarForce() {
 		LeanTween.cancel(barFirst.gameObject, false);
-		LeanTween.cancel(barSecond.gameObject, false);
-		barSecond.value = barFirst.value = currStamina;
+		barFirst.value = currStamina;
+		if (barFirst.value >= barSecond.value)
+			barSecond.value = currStamina;
 	}
 
 	void UpdateBar() {

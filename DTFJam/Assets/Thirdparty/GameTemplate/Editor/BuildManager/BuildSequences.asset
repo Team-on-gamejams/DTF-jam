@@ -35,25 +35,6 @@ MonoBehaviour:
       needGamejolthPush: 0
       needSteamPush: 0
       needGoogleDricePush: 0
-    - outputRoot: Builds/
-      middlePath: $NAME_$VERSION_TESTOSX/$NAME$EXECUTABLE
-      scriptingDefinySymbols: UNITY_POST_PROCESSING_STACK_V2;TMP_PRESENT;ARABSUPPORT_ENABLED
-      targetGroup: 1
-      target: 2
-      options: 0
-      isVirtualRealitySupported: 0
-      needZip: 0
-      compressDirPath: 
-      needItchPush: 0
-      itchChannel: 
-      itchDirPath: 
-      itchAddLastChangelogUpdateNameToVerison: 0
-      itchLastChangelogUpdateName: 
-      useGithubActions: 0
-      useUnityActions: 0
-      needGamejolthPush: 0
-      needSteamPush: 0
-      needGoogleDricePush: 0
   - editorName: WebGL + itch.io
     itchGameLink: teamon/gametemplate
     builds:

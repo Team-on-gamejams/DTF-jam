@@ -47,22 +47,17 @@ public class PlayerRageBar : MonoBehaviour {
 	Vector2 defaultTextPos;
 
 	private void Awake() {
-		currRage = 0.0f;
-		currRageDecreaseTimeout = 0.0f;
-
 		barFirst.minValue = minRage;
 		barFirst.maxValue = maxRage;
-		barFirst.value = currRage;
 
 		barSecond.minValue = minRage;
 		barSecond.maxValue = maxRage;
-		barSecond.value = currRage;
-
-		comboTextField.text = " ";
 
 		defaultBarPos = barParent.anchoredPosition;
 		defaultBarScale = barParent.localScale;
 		defaultTextPos = comboTextField.rectTransform.anchoredPosition;
+
+		Init();
 	}
 
 	private void Update() {
@@ -103,6 +98,16 @@ public class PlayerRageBar : MonoBehaviour {
 		}
 	}
 
+	public void Init() {
+		currRage = 0.0f;
+		currRageDecreaseTimeout = 0.0f;
+		barFirst.value = currRage;
+		barSecond.value = currRage;
+		comboTextField.text = " ";
+
+		onRageValueChange?.Invoke();
+	}
+
 	public void AddRage(float value) {
 		currRageDecreaseTimeout = 0.0f;
 
@@ -119,7 +124,7 @@ public class PlayerRageBar : MonoBehaviour {
 		SetComboColor(comboCounter, comboTextField);
 		comboTextField.text = $"x{comboCounter}";
 
-		AddRage(ragePerCombo * comboCounter);
+		AddRage(ragePerCombo);
 		return comboCounter;
 	}
 
