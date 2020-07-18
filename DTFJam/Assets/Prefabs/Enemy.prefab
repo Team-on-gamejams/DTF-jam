@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4069427862405494158}
   - component: {fileID: 4069427862405494156}
   - component: {fileID: 4069427862405494159}
+  - component: {fileID: 1013302470}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -81,6 +82,26 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1013302470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4069427862405494153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da88e8f9e1af764ab2a980ed6fe248c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackType: 0
+  attackRange: 2
+  attackCD: 1
+  _bulletNumber: 2
+  _delayBtwShots: 0.2
+  _bulletSpeed: 10
+  _bulletPrefab: {fileID: 0}
+  _barrelTransform: {fileID: 0}
 --- !u!1 &4069427862422133963
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,9 +473,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerWeapon: 0
-  missClips: []
-  hitClips: []
-  hitCollider: {fileID: 0}
+  missClips:
+  - {fileID: 8300000, guid: 11d525b2827b63c4d8ae5572d3259f37, type: 3}
+  hitClips:
+  - {fileID: 8300000, guid: 6c559541af4f68c4890a03289f41a92a, type: 3}
+  hitCollider: {fileID: 4069427862711562724}
 --- !u!1 &4069427862725855004
 GameObject:
   m_ObjectHideFlags: 0
@@ -1300,6 +1323,7 @@ GameObject:
   - component: {fileID: 4069427863085784671}
   - component: {fileID: 4069427863085784670}
   - component: {fileID: 4069427863085784668}
+  - component: {fileID: 1207545886}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1359,6 +1383,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75785018b5555eb4a86d629be8293839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1207545886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4069427863085784665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1012cc92a73f56e45b21f3e9d722da4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _chaseSpeed: 3
+  _searchRadius: 20
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  _swordAttackBox: {fileID: 4069427862711562727}
 --- !u!1 &4069427863115249078
 GameObject:
   m_ObjectHideFlags: 0
@@ -2327,6 +2369,7 @@ GameObject:
   - component: {fileID: 4069427863610091197}
   - component: {fileID: 4069427863610091196}
   - component: {fileID: 4069427863610091136}
+  - component: {fileID: 1437001340}
   m_Layer: 0
   m_Name: EnemyBody
   m_TagString: Player
@@ -2446,7 +2489,7 @@ MonoBehaviour:
   limitFallVelocity: -15
   groundLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
   groundMinDistance: 0.25
   groundMaxDistance: 0.5
   slopeLimit: 45
@@ -2463,6 +2506,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainHealth: {fileID: 4069427863085784670}
+--- !u!195 &1437001340
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4069427863610091198}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &4069427863625445443
 GameObject:
   m_ObjectHideFlags: 0
