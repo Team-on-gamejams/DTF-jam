@@ -12956,8 +12956,8 @@ RectTransform:
   m_Children:
   - {fileID: 1641634614}
   - {fileID: 1752907164}
-  - {fileID: 822441326}
   - {fileID: 1275511946}
+  - {fileID: 822441326}
   - {fileID: 2121941356}
   - {fileID: 1606368127}
   - {fileID: 1513209535}
@@ -29312,7 +29312,7 @@ RectTransform:
   - {fileID: 344026840}
   - {fileID: 239052949}
   m_Father: {fileID: 398123045}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -47272,7 +47272,7 @@ RectTransform:
   - {fileID: 1609910477}
   - {fileID: 1629780677}
   m_Father: {fileID: 398123045}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -53025,6 +53025,7 @@ GameObject:
   - component: {fileID: 1462072640}
   - component: {fileID: 1462072642}
   - component: {fileID: 1462072644}
+  - component: {fileID: 1462072645}
   - component: {fileID: 1462072641}
   - component: {fileID: 1462072643}
   m_Layer: 0
@@ -53095,6 +53096,7 @@ MonoBehaviour:
   health: {fileID: 1462072641}
   timer: {fileID: 822441327}
   rageBar: {fileID: 1462072644}
+  staminaBar: {fileID: 1462072645}
 --- !u!114 &1462072643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53265,6 +53267,27 @@ MonoBehaviour:
   firstBarTime: 0.2
   secondBarTime: 1
   shakeAmount: {x: 0, y: 1.5}
+--- !u!114 &1462072645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462072639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f01472ab451717946a40e2bd16ea86b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  regenerationMultiplier: 1
+  minStamina: 0
+  maxStamina: 100
+  staminaIncreaseTimeout: 0.5
+  staminaIncreaseSpeed: 33
+  barFirst: {fileID: 1806631087}
+  barSecond: {fileID: 23133228}
+  firstBarTime: 0.2
+  secondBarTime: 1
 --- !u!1 &1463121639
 GameObject:
   m_ObjectHideFlags: 0
@@ -77064,7 +77087,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -214.4, y: -60.100006}
+  m_AnchoredPosition: {x: -214.4, y: -60.100098}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2121941357

@@ -10,7 +10,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] Health health = null;
 	[SerializeField] PlayerTimer timer = null;
 	[SerializeField] PlayerRageBar rageBar = null;
-
+	[SerializeField] PlayerStaminaBar staminaBar = null;
 
 	private void Awake() {
 		GameManager.Instance.player = this;
@@ -30,5 +30,6 @@ public class Player : MonoBehaviour {
 	void OnRageValueChange() {
 		float currBuff = Mathf.Lerp(rageBuffs.x, rageBuffs.y, rageBar.CurrRagePersent);
 		mover.SetRageBuff(currBuff);
+		staminaBar.regenerationMultiplier = currBuff;
 	}
 }

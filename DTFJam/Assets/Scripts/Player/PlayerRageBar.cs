@@ -66,7 +66,10 @@ public class PlayerRageBar : MonoBehaviour {
 	}
 
 	private void Update() {
-		if(currRageDecreaseTimeout == rageDecreaseTimeout) {
+		if (!GameManager.Instance.isPlaying)
+			return;
+
+		if (currRageDecreaseTimeout == rageDecreaseTimeout) {
 			if(currRage != minRage) {
 				currRage -= rageDecreaseSpeed * Time.deltaTime;
 				if (currRage < minRage)
