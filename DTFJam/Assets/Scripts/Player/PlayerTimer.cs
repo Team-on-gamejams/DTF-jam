@@ -8,6 +8,7 @@ public class PlayerTimer : MonoBehaviour {
 	[SerializeField] float maxTimer = 60;
 	[SerializeField] float minTimer = 0;
 	[Space]
+	[SerializeField] float crossfadeTime = 1.0f;
 	[SerializeField] float halfValue = 0.5f;
 	[SerializeField] float almostEmptyValue = 0.08f;
 	[SerializeField] Color halfColor = Color.yellow;
@@ -71,11 +72,20 @@ public class PlayerTimer : MonoBehaviour {
 			textField.rectTransform.anchoredPosition = defaultTextFieldPos + Random.insideUnitCircle * Mathf.Lerp(shakeAmount.x, shakeAmount.y, 1.0f - Mathf.Clamp01(currTime / almostEmptyValue));
 		}
 		else if (currTime <= halfValue) {
-			textField.color = fillderImage.color = halfColor;
+			float secondsToNext = currTime - almostEmptyValue;
+			if(secondsToNext <= crossfadeTime) 
+				textField.color = fillderImage.color = Color.Lerp(almostEmptyColor, halfColor, secondsToNext / crossfadeTime);
+			else 
+				textField.color = fillderImage.color = halfColor;
 			textField.rectTransform.anchoredPosition = defaultTextFieldPos;
 		}
 		else {
-			textField.color = fillderImage.color = defaultColor;
+			float secondsToNext = currTime - halfValue;
+			if (secondsToNext <= crossfadeTime)
+				textField.color = fillderImage.color = Color.Lerp(halfColor, defaultColor, secondsToNext / crossfadeTime);
+			else
+				textField.color = fillderImage.color = defaultColor;
+
 			textField.rectTransform.anchoredPosition = defaultTextFieldPos;
 		}
 	}
