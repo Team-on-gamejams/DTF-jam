@@ -28996,7 +28996,7 @@ MonoBehaviour:
   maxTimer: 60
   minTimer: 0
   halfValue: 0.5
-  almostEmptyValue: 0.08
+  almostEmptyValue: 0.16
   halfColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   almostEmptyColor: {r: 1, g: 0, b: 0, a: 1}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BuildSequences
   m_EditorClassIdentifier: 
   sequences:
-  - editorName: Windows 32 only + itch.io
+  - editorName: Testing
     itchGameLink: teamon/gametemplate
     builds:
     - outputRoot: Builds/
@@ -25,11 +25,30 @@ MonoBehaviour:
       isVirtualRealitySupported: 0
       needZip: 0
       compressDirPath: $NAME_$VERSION_TESTWIN
-      needItchPush: 1
+      needItchPush: 0
       itchChannel: windows-32-test
       itchDirPath: $NAME_$VERSION_TESTWIN
       itchAddLastChangelogUpdateNameToVerison: 1
       itchLastChangelogUpdateName: 0.1 - YOUR MAMA TEST CHANGELOG@!
+      useGithubActions: 0
+      useUnityActions: 0
+      needGamejolthPush: 0
+      needSteamPush: 0
+      needGoogleDricePush: 0
+    - outputRoot: Builds/
+      middlePath: $NAME_$VERSION_TESTOSX/$NAME$EXECUTABLE
+      scriptingDefinySymbols: UNITY_POST_PROCESSING_STACK_V2;TMP_PRESENT;ARABSUPPORT_ENABLED
+      targetGroup: 1
+      target: 2
+      options: 0
+      isVirtualRealitySupported: 0
+      needZip: 0
+      compressDirPath: 
+      needItchPush: 0
+      itchChannel: 
+      itchDirPath: 
+      itchAddLastChangelogUpdateNameToVerison: 0
+      itchLastChangelogUpdateName: 
       useGithubActions: 0
       useUnityActions: 0
       needGamejolthPush: 0
