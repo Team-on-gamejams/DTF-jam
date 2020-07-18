@@ -6,6 +6,11 @@ using Invector.vCharacterController;
 public class PlayerMover : MonoBehaviour {
 	public Action<bool> onChangeControls;   // 0 - keyboard, 1 - gamepad
 
+	[Header("Values")] [Space]
+	[NonSerialized] public float dashForceMultiplier = 1.0f;
+	[SerializeField] float dashForce = 10.0f;
+
+
 	[Header("Mouse pointer")][Space]
 	[SerializeField] /*[GameObjectLayer]*/ int mouseRaycastLayer;
 	RaycastHit[] mouseRaycastHits = new RaycastHit[5];
@@ -18,10 +23,12 @@ public class PlayerMover : MonoBehaviour {
 	[Header("Refs")][Space]
 	[SerializeField] Transform mouseRaycastTransform;
 	[SerializeField] Camera mainCamera;
+	[SerializeField] Health health;
 
 	[Header("This Refs")][Space]
 	[SerializeField] vThirdPersonController cc;
 	[SerializeField] Animator anim;
+	[SerializeField] Rigidbody rb;
 
 	bool isUseGamepadControl;
 	bool isGamepadLookInput;
@@ -30,6 +37,7 @@ public class PlayerMover : MonoBehaviour {
 	Vector3 lookInput;
 	bool isAttackMelee;
 	bool isDash;
+	bool isCurrentlyDashing = false;
 
 	float defaultRunSpeed;
 
@@ -45,14 +53,20 @@ public class PlayerMover : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		cc.UpdateMotor();               // updates the ThirdPersonMotor methods
-		cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
+		if (!isCurrentlyDashing) {
+			cc.UpdateMotor();               // updates the ThirdPersonMotor methods
+			cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
+		}
+
 		cc.ControlRotationType();       // handle the controller rotation type
 	}
 
 	void Update() {
 		ProcessInput();
-		cc.UpdateAnimator();            // updates the Animator Parameters
+
+		if (!isCurrentlyDashing) {
+			cc.UpdateAnimator();            // updates the Animator Parameters
+		}
 	}
 
 	void OnAnimatorMove() {
@@ -69,7 +83,6 @@ public class PlayerMover : MonoBehaviour {
 		cc.input.z = moveInput.y;
 
 		cc.UpdateMoveDirection(mainCamera.transform);
-
 		if (isUseGamepadControl) {
 			mouseRaycastTransform.position = transform.position + new Vector3(lookInput.x, 0, lookInput.y);
 		}
@@ -99,6 +112,33 @@ public class PlayerMover : MonoBehaviour {
 		isCurrentlyAttack = false;
 	}
 
+	public void DashStart() {
+		cc.input.x = 0;
+		cc.input.z = 0;
+		cc.UpdateMoveDirection(mainCamera.transform);
+		cc.UpdateMotor();               // updates the ThirdPersonMotor methods
+		cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
+		cc.ControlRotationType();       // handle the controller rotation type
+
+		Vector3 dashDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
+
+		var right = mainCamera.transform.right;
+		right.y = 0;
+		var forward = Quaternion.AngleAxis(-90, Vector3.up) * right;
+		dashDirection = (dashDirection.x * right) + (dashDirection.z * forward);
+
+		rb.velocity = dashDirection.normalized * dashForce;
+
+		health.isCanTakeDamage = false;
+		isCurrentlyDashing = true;
+	}
+
+	public void DashEnd() {
+		health.isCanTakeDamage = true;
+		rb.velocity = Vector3.zero;
+		isCurrentlyDashing = false;
+
+	}
 	#endregion
 
 	#region Input handling
@@ -137,7 +177,7 @@ public class PlayerMover : MonoBehaviour {
 	public void OnAttackMelee(InputAction.CallbackContext context) {
 		CheckIsUseGamepad(context.control.device);
 
-		if (!GameManager.Instance.isPlaying)
+		if (!GameManager.Instance.isPlaying || isCurrentlyAttack)
 			return;
 
 		isAttackMelee = context.ReadValueAsButton();
@@ -150,11 +190,14 @@ public class PlayerMover : MonoBehaviour {
 	public void OnDash(InputAction.CallbackContext context) {
 		CheckIsUseGamepad(context.control.device);
 
-		if (!GameManager.Instance.isPlaying)
+		if (!GameManager.Instance.isPlaying || isCurrentlyDashing || isCurrentlyAttack || moveInput.sqrMagnitude <= 0.01f)
 			return;
 
 		isDash = context.ReadValueAsButton();
 
+		if (!isCurrentlyDashing && isDash && context.phase == InputActionPhase.Started && GameManager.Instance.player.TryDash()) {
+			anim.SetTrigger("IsDash");
+		}
 	}
 
 	void CheckIsUseGamepad(InputDevice device) {

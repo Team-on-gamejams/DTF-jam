@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 	[SerializeField] [MinMaxSlider(0, 5, false)] Vector2 rageBuffs = new Vector2(1, 2);
+	[SerializeField] float dashStaminaPrice = 50;
 
 	[Header("Refs")]
 	[Space]
@@ -27,9 +28,22 @@ public class Player : MonoBehaviour {
 		return rageBar.IncreaseComboCounter();
 	}
 
+	public bool TryDash() {
+		if (staminaBar.IsEnoughStamina(dashStaminaPrice)) {
+			staminaBar.DecreaseStamina(dashStaminaPrice);
+
+			return true;
+		}
+		else {
+
+			return false;
+		}
+	}
+
 	void OnRageValueChange() {
 		float currBuff = Mathf.Lerp(rageBuffs.x, rageBuffs.y, rageBar.CurrRagePersent);
 		mover.SetRageBuff(currBuff);
 		staminaBar.regenerationMultiplier = currBuff;
+		mover.dashForceMultiplier = currBuff;
 	}
 }
