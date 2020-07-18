@@ -28,16 +28,13 @@ public class PlayerStaminaBar : MonoBehaviour {
 	float currStaminaIncreaseTimeout;
 
 	private void Awake() {
-		currStamina = maxStamina;
-		currStaminaIncreaseTimeout = staminaIncreaseTimeout;
-
 		barFirst.minValue = minStamina;
 		barFirst.maxValue = maxStamina;
-		barFirst.value = currStamina;
 
 		barSecond.minValue = minStamina;
 		barSecond.maxValue = maxStamina;
-		barSecond.value = currStamina;
+		
+		Init();
 	}
 
 	private void Update() {
@@ -57,6 +54,14 @@ public class PlayerStaminaBar : MonoBehaviour {
 			if (currStaminaIncreaseTimeout >= staminaIncreaseTimeout)
 				currStaminaIncreaseTimeout = staminaIncreaseTimeout;
 		}
+	}
+
+	public void Init() {
+		currStamina = maxStamina;
+		currStaminaIncreaseTimeout = staminaIncreaseTimeout;
+
+		barFirst.value = currStamina;
+		barSecond.value = currStamina;
 	}
 
 	public bool IsEnoughStamina(float value) {

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Text;
 using NaughtyAttributes;
+using Action = System.Action;
 
 public class PlayerTimer : MonoBehaviour {
 	[SerializeField] float maxTimer = 60;
@@ -31,7 +32,7 @@ public class PlayerTimer : MonoBehaviour {
 	Vector2 defaultTextFieldPos;
 
 	private void Awake() {
-		currTime = maxTimer;
+		Init();
 
 		halfValue = Mathf.RoundToInt(maxTimer * halfValue);
 		almostEmptyValue = Mathf.RoundToInt(maxTimer * almostEmptyValue);
@@ -40,7 +41,6 @@ public class PlayerTimer : MonoBehaviour {
 
 		slider.minValue = minTimer;
 		slider.maxValue = maxTimer;
-		slider.SetValueWithoutNotify(currTime);
 	}
 
 	private void Update() {
@@ -50,7 +50,7 @@ public class PlayerTimer : MonoBehaviour {
 		currTime -= Time.unscaledDeltaTime; //TODO: not sure is we need to slow-mo timer? Discuss it
 		if (currTime <= minTimer) {
 			currTime = minTimer;
-			//TODO: end of game
+			SendMessage("Die");
 		}
 
 		slider.SetValueWithoutNotify(currTime);  //DEBUG
@@ -88,6 +88,13 @@ public class PlayerTimer : MonoBehaviour {
 
 			textField.rectTransform.anchoredPosition = defaultTextFieldPos;
 		}
+	}
+
+	public void Init() {
+		currTime = maxTimer;
+		slider.SetValueWithoutNotify(currTime);
+		textField.text = "60:00";
+		fillderImage.fillAmount = 1.0f;
 	}
 
 	public void OnSliderValueChange(float val) {

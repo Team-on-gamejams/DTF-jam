@@ -5,6 +5,7 @@ using Invector.vCharacterController;
 
 public class PlayerMover : MonoBehaviour {
 	public Action<bool> onChangeControls;   // 0 - keyboard, 1 - gamepad
+	public Action onRespawnEnd;
 
 	[Header("Values")] [Space]
 	[NonSerialized] public float dashForceMultiplier = 1.0f;
@@ -41,11 +42,13 @@ public class PlayerMover : MonoBehaviour {
 	bool isCurrentlyDashing = false;
 
 	float defaultRunSpeed;
+	Vector3 startPos;
 
 	void Awake() {
 		mouseRaycastLayer = 1 << mouseRaycastLayer;
 
 		defaultRunSpeed = cc.strafeSpeed.runningSpeed;
+		startPos = transform.position;
 	}
 
 	void Start() {
@@ -72,6 +75,22 @@ public class PlayerMover : MonoBehaviour {
 
 	void OnAnimatorMove() {
 		cc.ControlAnimatorRootMotion(); // handle root motion animations 
+	}
+
+	public void Respawn() {
+		Debug.Log("Respawn");
+		rb.velocity = Vector3.zero;
+		transform.position = startPos;
+
+		LeanTween.delayedCall(0.2f, () => {
+			moveInput = Vector3.zero;
+		});
+	}
+
+	public void OnDie() {
+		moveInput = Vector3.zero;
+		DashEnd();
+		Debug.Log("Player die");
 	}
 
 	public void SetRageBuff(float multiplier) {
@@ -142,6 +161,10 @@ public class PlayerMover : MonoBehaviour {
 		isCurrentlyDashing = false;
 		collider.enabled = true;
 		rb.useGravity = true;
+	}
+
+	public void OnSpawnEnd() {
+		onRespawnEnd?.Invoke();
 	}
 	#endregion
 
