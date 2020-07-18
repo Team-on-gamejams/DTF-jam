@@ -11,6 +11,9 @@ public class PlayerMover : MonoBehaviour {
 	[NonSerialized] public float dashForceMultiplier = 1.0f;
 	[SerializeField] float dashForce = 10.0f;
 
+	[Header("Audio")] [Space]
+	[SerializeField] AudioClip[] stepSonds;
+	int currStepSound = 0;
 
 	[Header("Mouse pointer")][Space]
 	[SerializeField] /*[GameObjectLayer]*/ int mouseRaycastLayer;
@@ -44,6 +47,9 @@ public class PlayerMover : MonoBehaviour {
 	float defaultRunSpeed;
 	Vector3 startPos;
 
+	const float minStepTime = 0.1f;
+	float currStepTime = 0.0f;
+
 	void Awake() {
 		mouseRaycastLayer = 1 << mouseRaycastLayer;
 
@@ -66,6 +72,7 @@ public class PlayerMover : MonoBehaviour {
 	}
 
 	void Update() {
+		currStepTime += Time.deltaTime;
 		ProcessInput();
 
 		if (!isCurrentlyDashing) {
@@ -166,6 +173,15 @@ public class PlayerMover : MonoBehaviour {
 	public void OnSpawnEnd() {
 		onRespawnEnd?.Invoke();
 	}
+
+	void StepSound() {
+		if(currStepTime > minStepTime) {
+			currStepTime = 0;
+			AudioManager.Instance.Play(stepSonds[currStepSound++], channel: AudioManager.AudioChannel.Sound);
+			if (currStepSound >= stepSonds.Length)
+				currStepSound = 0;
+		}
+	}
 	#endregion
 
 	#region Input handling
@@ -183,7 +199,6 @@ public class PlayerMover : MonoBehaviour {
 
 	public void OnMousePos(InputAction.CallbackContext context) {
 		CheckIsUseGamepad(context.control.device);
-		isGamepadLookInput = false;
 
 		if (!GameManager.Instance.isPlaying)
 			return;
@@ -193,7 +208,16 @@ public class PlayerMover : MonoBehaviour {
 
 	public void OnLook(InputAction.CallbackContext context) {
 		CheckIsUseGamepad(context.control.device);
-		isGamepadLookInput = true;
+
+		switch (context.phase) {
+			case InputActionPhase.Started:
+			isGamepadLookInput = true;
+				break;
+			case InputActionPhase.Disabled:
+			case InputActionPhase.Canceled:
+				isGamepadLookInput = false;
+				break;
+		}
 
 		if (!GameManager.Instance.isPlaying)
 			return;

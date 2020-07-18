@@ -95,6 +95,8 @@ public class PlayerTimer : MonoBehaviour {
 		slider.SetValueWithoutNotify(currTime);
 		textField.text = "60:00";
 		fillderImage.fillAmount = 1.0f;
+
+		textField.color = fillderImage.color = defaultColor;
 	}
 
 	public void OnSliderValueChange(float val) {

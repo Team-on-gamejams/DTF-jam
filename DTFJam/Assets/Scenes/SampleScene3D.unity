@@ -45272,6 +45272,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6404925567401882056, guid: d8935fc108990824d88d73aed07eb355,
+        type: 3}
+      propertyPath: analogNoice
+      value: 
+      objectReference: {fileID: 8300000, guid: d5b64b6e802031a46951a8e60acf59c3, type: 3}
     - target: {fileID: 6404925567401882058, guid: d8935fc108990824d88d73aed07eb355,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -45332,5 +45337,40 @@ PrefabInstance:
       propertyPath: m_Interpolate
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7316267074304133306, guid: d8935fc108990824d88d73aed07eb355,
+        type: 3}
+      propertyPath: stepSonds.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7316267074304133306, guid: d8935fc108990824d88d73aed07eb355,
+        type: 3}
+      propertyPath: stepSonds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5fef0709d3dfac2468c1ab5bdafa6d8e, type: 3}
+    - target: {fileID: 7316267074304133306, guid: d8935fc108990824d88d73aed07eb355,
+        type: 3}
+      propertyPath: stepSonds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5df937b8e0e8afa46877f5d3e3583b6f, type: 3}
+    - target: {fileID: 7316267074304133306, guid: d8935fc108990824d88d73aed07eb355,
+        type: 3}
+      propertyPath: stepSonds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: b8cd3cd30594ed849b934fe91ebb88dc, type: 3}
+    - target: {fileID: 7316267074304133306, guid: d8935fc108990824d88d73aed07eb355,
+        type: 3}
+      propertyPath: stepSonds.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4ef679fc03a3cc849b7fe0e321c66872, type: 3}
+    - target: {fileID: 7316267074304133306, guid: d8935fc108990824d88d73aed07eb355,
+        type: 3}
+      propertyPath: stepSonds.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4ef5474112b21ce4b8ea5021bc6d3f2b, type: 3}
+    - target: {fileID: 7316267074304133306, guid: d8935fc108990824d88d73aed07eb355,
+        type: 3}
+      propertyPath: stepSonds.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4ef5474112b21ce4b8ea5021bc6d3f2b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8935fc108990824d88d73aed07eb355, type: 3}

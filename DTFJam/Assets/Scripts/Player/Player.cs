@@ -13,6 +13,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] int cameraAnimsCount = 6;
 	[SerializeField] AudioClip dieClip = null;
 	[SerializeField] AudioClip spawnClip = null;
+	[SerializeField] AudioClip analogNoice = null;
 
 	[Header("Refs")]
 	[Space]
@@ -64,11 +65,19 @@ public class Player : MonoBehaviour {
 		GameManager.Instance.isPlaying = false;
 		mover.OnDie();
 
-		Destroy(GameManager.Instance.ambient);
+		Destroy(GameManager.Instance.ambient.gameObject);
 		AudioManager.Instance.Play(dieClip, channel: AudioManager.AudioChannel.Sound);
+		AudioSource analogNoiceas = AudioManager.Instance.PlayFaded(analogNoice, channel: AudioManager.AudioChannel.Sound);
+		analogNoiceas.volume = 0.7f;
 
 		anim.SetInteger("DieAnimation", Random.Range(1, dieAnimationCount));
 		cameraAnim.SetInteger("DieAnimation", Random.Range(1, cameraAnimsCount));
+
+		LeanTween.value(analogNoiceas.volume, 1.0f, 0.1f)
+			.setDelay(2.2f)
+			.setOnUpdate((float v)=> { 
+				analogNoiceas.volume = v;
+			});
 
 		LeanTween.delayedCall(2.5f, () => {
 			anim.SetInteger("DieAnimation", 0);
@@ -80,11 +89,19 @@ public class Player : MonoBehaviour {
 			mover.Respawn();
 		});
 
+		LeanTween.value(analogNoiceas.volume, 0.7f, 0.1f)
+			.setDelay(2.6f)
+			.setOnUpdate((float v) => {
+				analogNoiceas.volume = v;
+			});
+
 		LeanTween.delayedCall(4.5f, () => {
 			anim.SetTrigger("IsSpawning");
 		});
 
 		LeanTween.delayedCall(5.0f, () => {
+			if(analogNoiceas != null)
+				Destroy(analogNoiceas.gameObject);
 			AudioManager.Instance.Play(spawnClip, channel: AudioManager.AudioChannel.Sound);
 		});
 	}
