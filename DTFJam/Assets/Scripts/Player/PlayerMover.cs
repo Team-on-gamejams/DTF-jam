@@ -12,7 +12,7 @@ public class PlayerMover : MonoBehaviour {
 
 	[Header("Attack values")]
 	[Space]
-	[SerializeField] Collider swordAttackBoxCollider;
+	[SerializeField] DealDamageOnTriggerEnter swordAttackBox;
 	bool isCurrentlyAttack = false;
 
 	[Header("Refs")][Space]
@@ -74,15 +74,16 @@ public class PlayerMover : MonoBehaviour {
 
 	#region Animators callback
 	public void EnableAttackCollider() {
-		swordAttackBoxCollider.enabled = true;
+		swordAttackBox.AttackStart();
 	}
 
 	public void DisableAttackCollider() {
-		swordAttackBoxCollider.enabled = false;
+		swordAttackBox.AttackEnd();
 	}
-	
+
 	public void AttackStart() {
 		isCurrentlyAttack = true;
+		swordAttackBox.CheckHit();
 	}
 
 	public void AttackEnd() {
@@ -94,6 +95,10 @@ public class PlayerMover : MonoBehaviour {
 	#region Input handling
 	public void OnMove(InputAction.CallbackContext context) {
 		CheckIsUseGamepad(context.control.device);
+
+		if (!GameManager.Instance.isPlaying)
+			return;
+
 		moveInput = context.ReadValue<Vector2>();
 
 		if (isUseGamepadControl && !isGamepadLookInput)
@@ -102,18 +107,30 @@ public class PlayerMover : MonoBehaviour {
 
 	public void OnMousePos(InputAction.CallbackContext context) {
 		CheckIsUseGamepad(context.control.device);
-		mousePos = context.ReadValue<Vector2>();
 		isGamepadLookInput = false;
+
+		if (!GameManager.Instance.isPlaying)
+			return;
+
+		mousePos = context.ReadValue<Vector2>();
 	}
 
 	public void OnLook(InputAction.CallbackContext context) {
 		CheckIsUseGamepad(context.control.device);
-		lookInput = context.ReadValue<Vector2>();
 		isGamepadLookInput = true;
+
+		if (!GameManager.Instance.isPlaying)
+			return;
+
+		lookInput = context.ReadValue<Vector2>();
 	}
 
 	public void OnAttackMelee(InputAction.CallbackContext context) {
 		CheckIsUseGamepad(context.control.device);
+
+		if (!GameManager.Instance.isPlaying)
+			return;
+
 		isAttackMelee = context.ReadValueAsButton();
 
 		if (!isCurrentlyAttack && isAttackMelee && context.phase == InputActionPhase.Started) {
@@ -123,6 +140,10 @@ public class PlayerMover : MonoBehaviour {
 
 	public void OnDash(InputAction.CallbackContext context) {
 		CheckIsUseGamepad(context.control.device);
+
+		if (!GameManager.Instance.isPlaying)
+			return;
+
 		isDash = context.ReadValueAsButton();
 
 	}

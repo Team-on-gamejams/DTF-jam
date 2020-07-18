@@ -43,7 +43,7 @@ public class PlayerTimer : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (currTime == minTimer)
+		if (!GameManager.Instance.isPlaying || currTime == minTimer)
 			return;
 
 		currTime -= Time.unscaledDeltaTime; //TODO: not sure is we need to slow-mo timer? Discuss it

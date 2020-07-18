@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using yaSingleton;
+using System.Collections;
 
 //TODO: add audio source pooling 
 [CreateAssetMenu(fileName = "Audio Manager", menuName = "Singletons/AudioManager")]
@@ -68,7 +69,7 @@ public class AudioManager : Singleton<AudioManager> {
 
 		switch (channel) {
 			case AudioChannel.Master:
-				if(isEnabled)
+				if (isEnabled)
 					masterMixer.SetFloat("MasterVolume", adjustedVolume);
 				PlayerPrefs.SetFloat(SAVE_KEY_MASTER, volume);
 				break;
@@ -149,6 +150,28 @@ public class AudioManager : Singleton<AudioManager> {
 		AudioSource source = CreatePlaySource(clip, Vector3.zero, volume, pitch, channel);
 		source.loop = true;
 		return source;
+	}
+
+	public AudioSource PlayLoopFaded(AudioClip clip, float startVolume = 0.0f, float endVolume = 1.0f, float fadeTime = 1.0f, float pitch = 1.0f, AudioChannel channel = AudioChannel.Master) {
+		AudioSource source = CreatePlaySource(clip, Vector3.zero, startVolume, pitch, channel);
+		source.loop = true;
+		FadeVolume(source, endVolume, fadeTime);
+		return source;
+	}
+
+	public void FadeVolume(AudioSource audioSource, float volume = 1.0f, float time = 1.0f) {
+		StartCoroutine(FadeVolumeRoutine());
+
+		IEnumerator FadeVolumeRoutine() {
+			float currTime = 0.0f;
+			float startVolume = audioSource.volume;
+
+			do {
+				currTime += Time.unscaledDeltaTime;
+				audioSource.volume = Mathf.Lerp(startVolume, volume, currTime / time);
+				yield return null;
+			} while (currTime < time);
+		}
 	}
 
 	AudioSource CreatePlaySource(AudioClip clip, Transform emitter, float volume, float pitch, AudioChannel channel) {
