@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using yaSingleton;
 
 [CreateAssetMenu(fileName = "Game Manager", menuName = "Singletons/GameManager")]
@@ -11,7 +12,8 @@ public class GameManager : Singleton<GameManager> {
 	}}
 
 	//Global game data
-	public Player player;
+	[NonSerialized] public bool isPlaying = false;
+	[NonSerialized] public Player player;
 
 	//Global data
 	public string buildNameString;
