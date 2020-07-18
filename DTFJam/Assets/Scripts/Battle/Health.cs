@@ -13,6 +13,7 @@ public class Health : MonoBehaviour {
 
 	[Header("UI")] [Space]
 	[SerializeField] bool needShowOnInit = false;
+	[SerializeField] bool boolNeedToFindUI = false;
 	[SerializeField] Slider barFirst = null;
 	[SerializeField] Slider barSecond = null;
 	[SerializeField] TextMeshProUGUI hpTextField = null;
@@ -30,7 +31,7 @@ public class Health : MonoBehaviour {
 	protected virtual void Awake() {
 		currHit = maxHits;
 
-		if (barFirst == null) {
+		if (barFirst == null && boolNeedToFindUI) {
 			FindBars();
 
 			if (barFirst == null && healthCanvasPrefab != null) {

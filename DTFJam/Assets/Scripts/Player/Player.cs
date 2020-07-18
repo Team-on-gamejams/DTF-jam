@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 	[Header("Refs")]
 	[Space]
 	[SerializeField] Health playerHealth;
+	[SerializeField] PlayerTimer timer;
 
 	int comboCounter = 0;
 
