@@ -10,6 +10,9 @@ public class GameManager : Singleton<GameManager> {
 			return mainCamera;
 	}}
 
+	//Global game data
+	public Player player;
+
 	//Global data
 	public string buildNameString;
 
