@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Invector.vCharacterController;
-using UnityForge.PropertyDrawers;
 
 public class PlayerMover : MonoBehaviour {
+	public Action<bool> onChangeControls;   // 0 - keyboard, 1 - gamepad
+
 	[Header("Mouse pointer")][Space]
 	[SerializeField] /*[GameObjectLayer]*/ int mouseRaycastLayer;
 	RaycastHit[] mouseRaycastHits = new RaycastHit[5];
@@ -23,7 +23,8 @@ public class PlayerMover : MonoBehaviour {
 	[SerializeField] vThirdPersonController cc;
 	[SerializeField] Animator anim;
 
-
+	bool isUseGamepadControl;
+	bool isGamepadLookInput;
 	Vector3 moveInput;
 	Vector3 mousePos;
 	Vector3 lookInput;
@@ -60,9 +61,14 @@ public class PlayerMover : MonoBehaviour {
 
 		cc.UpdateMoveDirection(mainCamera.transform);
 
-		Ray ray = mainCamera.ScreenPointToRay(mousePos);
-		if (Physics.Raycast(ray, out RaycastHit hit, 100, mouseRaycastLayer)) {
-			mouseRaycastTransform.position = hit.point;
+		if (isUseGamepadControl) {
+			mouseRaycastTransform.position = transform.position + new Vector3(lookInput.x, 0, lookInput.y);
+		}
+		else {
+			Ray ray = mainCamera.ScreenPointToRay(mousePos);
+			if (Physics.Raycast(ray, out RaycastHit hit, 100, mouseRaycastLayer)) {
+				mouseRaycastTransform.position = hit.point;
+			}
 		}
 	}
 
@@ -87,21 +93,27 @@ public class PlayerMover : MonoBehaviour {
 
 	#region Input handling
 	public void OnMove(InputAction.CallbackContext context) {
+		CheckIsUseGamepad(context.control.device);
 		moveInput = context.ReadValue<Vector2>();
 
+		if (isUseGamepadControl && !isGamepadLookInput)
+			lookInput = moveInput;
 	}
 
 	public void OnMousePos(InputAction.CallbackContext context) {
+		CheckIsUseGamepad(context.control.device);
 		mousePos = context.ReadValue<Vector2>();
-
+		isGamepadLookInput = false;
 	}
 
 	public void OnLook(InputAction.CallbackContext context) {
+		CheckIsUseGamepad(context.control.device);
 		lookInput = context.ReadValue<Vector2>();
-
+		isGamepadLookInput = true;
 	}
 
 	public void OnAttackMelee(InputAction.CallbackContext context) {
+		CheckIsUseGamepad(context.control.device);
 		isAttackMelee = context.ReadValueAsButton();
 
 		if (!isCurrentlyAttack && isAttackMelee && context.phase == InputActionPhase.Started) {
@@ -110,8 +122,17 @@ public class PlayerMover : MonoBehaviour {
 	}
 
 	public void OnDash(InputAction.CallbackContext context) {
+		CheckIsUseGamepad(context.control.device);
 		isDash = context.ReadValueAsButton();
 
+	}
+
+	void CheckIsUseGamepad(InputDevice device) {
+		bool isGamepadInput = device is Gamepad;
+		if (isGamepadInput != isUseGamepadControl) {
+			isUseGamepadControl = isGamepadInput;
+			onChangeControls?.Invoke(isUseGamepadControl);
+		}
 	}
 	#endregion
 }

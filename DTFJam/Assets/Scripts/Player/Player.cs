@@ -6,7 +6,8 @@ public class Player : MonoBehaviour {
 
 	[Header("Refs")]
 	[Space]
-	[SerializeField] Health playerHealth;
+	[SerializeField] PlayerMover mover;
+	[SerializeField] Health health;
 	[SerializeField] PlayerTimer timer;
 
 	int comboCounter = 0;
