@@ -54,6 +54,7 @@ public class DealDamageOnTriggerEnter : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter(Collider other) {
+		
 		Health otherHealth = other.GetComponent<Health>();
 		if(otherHealth == null) {
 			otherHealth = other.GetComponent<HealthPass>()?.mainHealth;
