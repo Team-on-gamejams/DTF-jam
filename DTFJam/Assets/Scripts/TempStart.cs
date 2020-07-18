@@ -20,7 +20,7 @@ public class TempStart : MonoBehaviour {
 		float crossTime = 3.0f;
 
 		AudioManager.Instance.FadeVolume(ambient, 0.0f, crossTime);
-		ambient = AudioManager.Instance.PlayLoopFaded(battleAmbient, fadeTime: crossTime, channel: AudioManager.AudioChannel.Music);
+		ambient = AudioManager.Instance.PlayFaded(battleAmbient, fadeTime: crossTime, channel: AudioManager.AudioChannel.Music);
 
 		btn.gameObject.SetActive(false);
 

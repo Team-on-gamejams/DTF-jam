@@ -24,6 +24,7 @@ public class PlayerMover : MonoBehaviour {
 	[SerializeField] Transform mouseRaycastTransform;
 	[SerializeField] Camera mainCamera;
 	[SerializeField] Health health;
+	[SerializeField] Collider collider;
 
 	[Header("This Refs")][Space]
 	[SerializeField] vThirdPersonController cc;
@@ -127,17 +128,20 @@ public class PlayerMover : MonoBehaviour {
 		var forward = Quaternion.AngleAxis(-90, Vector3.up) * right;
 		dashDirection = (dashDirection.x * right) + (dashDirection.z * forward);
 
-		rb.velocity = dashDirection.normalized * dashForce;
+		rb.velocity = dashDirection.normalized * dashForce * dashForceMultiplier;
 
 		health.isCanTakeDamage = false;
 		isCurrentlyDashing = true;
+		collider.enabled = false;
+		rb.useGravity = false;
 	}
 
 	public void DashEnd() {
 		health.isCanTakeDamage = true;
 		rb.velocity = Vector3.zero;
 		isCurrentlyDashing = false;
-
+		collider.enabled = true;
+		rb.useGravity = true;
 	}
 	#endregion
 
@@ -190,7 +194,7 @@ public class PlayerMover : MonoBehaviour {
 	public void OnDash(InputAction.CallbackContext context) {
 		CheckIsUseGamepad(context.control.device);
 
-		if (!GameManager.Instance.isPlaying || isCurrentlyDashing || isCurrentlyAttack || moveInput.sqrMagnitude <= 0.01f)
+		if (!GameManager.Instance.isPlaying || isCurrentlyDashing || moveInput.sqrMagnitude <= 0.01f)
 			return;
 
 		isDash = context.ReadValueAsButton();

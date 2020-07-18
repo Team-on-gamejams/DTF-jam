@@ -428,7 +428,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6404925566165630198}
   m_LocalRotation: {x: 0.46405768, y: 0.23995696, z: -0.13219027, w: 0.84237576}
-  m_LocalPosition: {x: -2.8158002, y: 8.452619, z: -4.5414224}
+  m_LocalPosition: {x: -2.5342224, y: 8.656494, z: -4.0676947}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6404925567401882058}
@@ -929,7 +929,7 @@ MonoBehaviour:
   m_ZDamping: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 10
+  m_CameraDistance: 9
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -2795,7 +2795,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6404925567269185592}
   m_LocalRotation: {x: 0.46405768, y: 0.23995696, z: -0.13219027, w: 0.84237576}
-  m_LocalPosition: {x: -2.8158002, y: 8.452619, z: -4.5414224}
+  m_LocalPosition: {x: -2.5342224, y: 8.656494, z: -4.0676947}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6404925566265516657}
@@ -2821,7 +2821,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 7316267074304133283}
+  m_Follow: {fileID: 7316267075837584404}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -3270,6 +3270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rageBuffs: {x: 1, y: 2}
+  dashStaminaPrice: 33
   mover: {fileID: 7316267074304133306}
   health: {fileID: 6404925567401882059}
   timer: {fileID: 6404925565894029797}
@@ -3315,6 +3316,7 @@ MonoBehaviour:
   minStamina: 0
   maxStamina: 100
   staminaIncreaseTimeout: 0.5
+  staminaIncreaseTimeoutIfConsumeAll: 1
   staminaIncreaseSpeed: 33
   barFirst: {fileID: 6404925567057265701}
   barSecond: {fileID: 6404925566692882598}
@@ -3333,7 +3335,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isUnderPlayerAttack: 0
-  maxHits: 100
+  isCanTakeDamage: 1
+  maxHits: 1
   needShowOnInit: 0
   boolNeedToFindUI: 0
   barFirst: {fileID: 0}
@@ -4020,7 +4023,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: cbd1db45c75e5b948a5befe9ecb80421, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -4117,12 +4120,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef2cbe547e6abb41a0ff390c59e99ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashForce: 10
   mouseRaycastLayer: 8
   swordAttackBox: {fileID: 6404925566406721735}
   mouseRaycastTransform: {fileID: 6404925566655417193}
   mainCamera: {fileID: 6404925566165630197}
+  health: {fileID: 6404925567401882059}
+  collider: {fileID: 7316267074304133286}
   cc: {fileID: 7316267074304133304}
   anim: {fileID: 7316267074304133282}
+  rb: {fileID: 7316267074304133287}
 --- !u!81 &7316267074304133305
 AudioListener:
   m_ObjectHideFlags: 0
@@ -5151,7 +5158,7 @@ Transform:
   m_GameObject: {fileID: 7316267075045134819}
   m_LocalRotation: {x: -0.14777023, y: -0.0063015977, z: 0.00074138155, w: 0.9890014}
   m_LocalPosition: {x: -0.0000004218891, y: 12.885061, z: -0.0000033304093}
-  m_LocalScale: {x: 0.99999994, y: 0.99999934, z: 0.9999998}
+  m_LocalScale: {x: 1.5, y: 0.99999934, z: 0.9999998}
   m_Children:
   - {fileID: 7316267074542222340}
   m_Father: {fileID: 7316267074952557398}

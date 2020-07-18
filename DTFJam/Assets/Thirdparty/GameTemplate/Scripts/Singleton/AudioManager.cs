@@ -159,6 +159,13 @@ public class AudioManager : Singleton<AudioManager> {
 		return source;
 	}
 
+	public AudioSource PlayFaded(AudioClip clip, float startVolume = 0.0f, float endVolume = 1.0f, float fadeTime = 1.0f, float pitch = 1.0f, AudioChannel channel = AudioChannel.Master) {
+		AudioSource source = CreatePlaySource(clip, Vector3.zero, startVolume, pitch, channel);
+		FadeVolume(source, endVolume, fadeTime);
+		Destroy(source.gameObject, clip.length + 1.0f);
+		return source;
+	}
+
 	public void FadeVolume(AudioSource audioSource, float volume = 1.0f, float time = 1.0f) {
 		StartCoroutine(FadeVolumeRoutine());
 

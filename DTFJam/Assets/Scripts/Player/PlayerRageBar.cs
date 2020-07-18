@@ -119,7 +119,7 @@ public class PlayerRageBar : MonoBehaviour {
 		SetComboColor(comboCounter, comboTextField);
 		comboTextField.text = $"x{comboCounter}";
 
-		AddRage(ragePerCombo * comboCounter);
+		AddRage(ragePerCombo);
 		return comboCounter;
 	}
 
