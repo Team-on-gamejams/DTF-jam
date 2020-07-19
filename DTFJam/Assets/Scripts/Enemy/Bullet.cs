@@ -19,7 +19,10 @@ public class Bullet : MonoBehaviour
         Vector3 myPosition = transform.position;
         myPosition.y = 0f;
 
-        _rigidBody.velocity = (playerPosition - myPosition).normalized * speed;
+        Vector3 targetDirection = (playerPosition - myPosition).normalized;
+        transform.rotation = Quaternion.LookRotation(targetDirection);
+        transform.up = transform.forward;
+        _rigidBody.velocity = targetDirection * speed;
         //_rigidBody.AddForce(transform.up * speed, ForceMode.Impulse);
 
         _curLifetime = _lifetime + Time.time;

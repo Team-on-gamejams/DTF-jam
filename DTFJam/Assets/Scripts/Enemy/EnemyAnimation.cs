@@ -75,8 +75,11 @@ public class EnemyAnimation : MonoBehaviour
     #region Animators callback
     public void EnableAttackCollider()
     {
-		if(_weapon.attackType == AttackType.Melee)
-			_swordAttackBox.AttackStart();
+		if (_weapon.attackType == AttackType.Melee)
+		{
+			_swordAttackBox.EnableCollider();
+			_swordAttackBox.Invoke("AttackStart", Time.deltaTime);
+		}
     }
 
     public void DisableAttackCollider()

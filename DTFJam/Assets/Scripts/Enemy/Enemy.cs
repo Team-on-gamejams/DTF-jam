@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
             return;
 
         if(_playerTransform != null && _canRotate)
-            Rotate();
+            _myTransform.rotation = Rotate();
 
         PlayerSearch();
 
@@ -119,9 +119,10 @@ public class Enemy : MonoBehaviour
                     return;
                 }
 
-                //_myTransform.forward = GetForward();
                 _canRotate = true;
-                _attackEvent.Invoke();
+                //_myTransform.forward = GetForward();
+                if (_myTransform.rotation == Rotate())
+                    _attackEvent.Invoke();
             }
         }
     }
@@ -188,10 +189,10 @@ public class Enemy : MonoBehaviour
         _animation.anim.SetTrigger("IsAttack");
     }
 
-    private void Rotate()
+    private Quaternion Rotate()
     {
         Vector3 targetDirection = (_playerTransform.position - _myTransform.position).normalized;
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-        _myTransform.rotation = Quaternion.RotateTowards(_myTransform.rotation, targetRotation, Time.deltaTime * _rotateSpeed);
+        return Quaternion.RotateTowards(_myTransform.rotation, targetRotation, Time.deltaTime * _rotateSpeed);
     }
 }
