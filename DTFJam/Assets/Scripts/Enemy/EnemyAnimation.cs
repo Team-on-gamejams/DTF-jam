@@ -78,7 +78,9 @@ public class EnemyAnimation : MonoBehaviour
 	public void Die()
     {
 		anim.SetInteger("DieAnimation", UnityEngine.Random.Range(1, _dieAnimationCount));
-		_swordAttackBox.DisableAttack();
+
+		if(_weapon.attackType == AttackType.Melee)
+			_swordAttackBox.DisableAttack();
 	}
 
     #region Animators callback
