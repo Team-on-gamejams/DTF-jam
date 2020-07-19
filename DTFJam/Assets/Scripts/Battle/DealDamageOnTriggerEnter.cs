@@ -22,6 +22,7 @@ public class DealDamageOnTriggerEnter : MonoBehaviour {
 
 	List<Health> hitted = new List<Health>(4);
 	bool isAttacking = false;
+	bool canAttack = true;
 
 	public void CheckHit() {
 		if(isPlayerWeapon)
@@ -35,24 +36,30 @@ public class DealDamageOnTriggerEnter : MonoBehaviour {
 	}
 
 	public void AttackStart() {
-		isAttacking = true;
+		if (canAttack)
+		{
+			isAttacking = true;
 
-		sb.Clear();
-		sb.Append($"Attack {hitted.Count} entities");
+			sb.Clear();
+			sb.Append($"Attack {hitted.Count} entities");
 
-		foreach (var health in hitted) {
-			DealHit(health);
-			sb.Append($"\nAttack {health.transform.name}");
+			foreach (var health in hitted)
+			{
+				DealHit(health);
+				sb.Append($"\nAttack {health.transform.name}");
+			}
+
+			if (hitted.Count != 0)
+			{
+				AudioManager.Instance.Play(hitClips.Random(), channel: AudioManager.AudioChannel.Sound);
+			}
+			else
+			{
+				AudioManager.Instance.Play(missClips.Random(), channel: AudioManager.AudioChannel.Sound);
+			}
+
+			Debug.Log(sb.ToString());
 		}
-
-		if(hitted.Count != 0) {
-			AudioManager.Instance.Play(hitClips.Random(), channel: AudioManager.AudioChannel.Sound);
-		}
-		else {
-			AudioManager.Instance.Play(missClips.Random(), channel: AudioManager.AudioChannel.Sound);
-		}
-
-		Debug.Log(sb.ToString());
 	}
 
 	public void AttackEnd() {
@@ -101,4 +108,9 @@ public class DealDamageOnTriggerEnter : MonoBehaviour {
 
 		health.GetHit();
 	}
+
+	public void DisableAttack()
+    {
+		canAttack = false;
+    }
 }

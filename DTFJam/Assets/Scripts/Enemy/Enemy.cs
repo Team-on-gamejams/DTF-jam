@@ -142,6 +142,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void Die()
+    {
+        _animation.Die();
+        _navAgent.ResetPath();
+        _navAgent.velocity = Vector3.zero;
+        SwitchState(States.Dead);
+    }
+
     private void PlayerSearch()
     {
         if (_playerTransform != null)

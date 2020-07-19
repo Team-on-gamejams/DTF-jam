@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Invector.vCharacterController;
 using UnityEngine.AI;
+using UnityForge.PropertyDrawers;
 
 public class EnemyAnimation : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class EnemyAnimation : MonoBehaviour
 
 	const float minStepTime = 0.1f;
 	float currStepTime = 0.0f;
+
+	private int _dieAnimationCount = 10;
 
 	void Awake()
 	{
@@ -70,6 +73,12 @@ public class EnemyAnimation : MonoBehaviour
 	void OnAnimatorMove()
 	{
 		cc.ControlAnimatorRootMotion(); // handle root motion animations 
+	}
+
+	public void Die()
+    {
+		anim.SetInteger("DieAnimation", UnityEngine.Random.Range(1, _dieAnimationCount));
+		_swordAttackBox.DisableAttack();
 	}
 
     #region Animators callback
