@@ -54,7 +54,6 @@ public class PlayerMover : MonoBehaviour {
 		mouseRaycastLayer = 1 << mouseRaycastLayer;
 
 		defaultRunSpeed = cc.strafeSpeed.runningSpeed;
-		startPos = transform.position;
 	}
 
 	void Start() {
@@ -82,6 +81,10 @@ public class PlayerMover : MonoBehaviour {
 
 	void OnAnimatorMove() {
 		cc.ControlAnimatorRootMotion(); // handle root motion animations 
+	}
+
+	public void OnEnterNewLevel(Transform newSpawnPos) {
+		startPos = newSpawnPos.position;
 	}
 
 	public void Respawn() {

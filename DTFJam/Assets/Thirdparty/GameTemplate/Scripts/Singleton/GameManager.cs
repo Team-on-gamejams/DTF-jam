@@ -15,6 +15,7 @@ public class GameManager : Singleton<GameManager> {
 	[NonSerialized] public bool isPlaying = false;
 	[NonSerialized] public Player player;
 	[NonSerialized] public AudioSource ambient;
+	[NonSerialized] public LevelsManager levelsManager;
 
 	//Global data
 	public string buildNameString;

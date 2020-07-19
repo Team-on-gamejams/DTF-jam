@@ -1,7 +1,11 @@
 ﻿using NaughtyAttributes;
 using UnityEngine;
 
+using Action = System.Action;
+
 public class Player : MonoBehaviour {
+	public Action onRespawn;
+
 	[Header("Balance")]
 	[Space]
 	[SerializeField] [MinMaxSlider(0, 5, false)] Vector2 rageBuffs = new Vector2(1, 2);
@@ -61,6 +65,10 @@ public class Player : MonoBehaviour {
 		mover.dashForceMultiplier = currBuff;
 	}
 
+	public void OnEnterNewLevel(Transform newSpawnPos) {
+		mover.OnEnterNewLevel(newSpawnPos);
+	}
+
 	void Die() {
 		GameManager.Instance.isPlaying = false;
 		mover.OnDie();
@@ -87,6 +95,7 @@ public class Player : MonoBehaviour {
 			staminaBar.Init();
 			rageBar.Init();
 			mover.Respawn();
+			onRespawn?.Invoke();
 		});
 
 		LeanTween.value(analogNoiceas.volume, 0.7f, 0.1f)

@@ -45,7 +45,7 @@ public class PlayerRageBar : MonoBehaviour {
 
 	float currRage;
 	float currRageDecreaseTimeout;
-	int comboCounter = 0;
+	int comboCounter;
 
 	Vector2 defaultBarPos;
 	Vector2 defaultBarScale;
@@ -106,6 +106,7 @@ public class PlayerRageBar : MonoBehaviour {
 	public void Init() {
 		currRage = 0.0f;
 		currRageDecreaseTimeout = 0.0f;
+		comboCounter = 0;
 		barFirst.value = barSecond.value = currRage;
 		comboTextField.text = " ";
 
