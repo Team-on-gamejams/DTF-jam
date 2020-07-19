@@ -11,6 +11,7 @@ public class MainMenuInGame : MonoBehaviour {
 
 	[Header("Refs")]
 	[Space]
+	[SerializeField] Button firstButton;
 	[SerializeField] CanvasGroup cg;
 	[SerializeField] Image startFader;
 	[SerializeField] Animator animCamera;
@@ -29,6 +30,11 @@ public class MainMenuInGame : MonoBehaviour {
 			});
 
 		GameManager.Instance.player.mover.onRespawnEnd += OnRespawnEnd;
+	}
+
+	private void OnApplicationFocus(bool focus) {
+		if(cg.interactable)
+			firstButton.Select();
 	}
 
 	public void NewGame() {
@@ -61,5 +67,7 @@ public class MainMenuInGame : MonoBehaviour {
 		LeanTweenEx.ChangeCanvasGroupAlpha(cg, 1.0f, 0.5f)
 			.setDelay(1.0f);
 		cg.blocksRaycasts = cg.interactable = true;
+
+		firstButton.Select();
 	}
 }

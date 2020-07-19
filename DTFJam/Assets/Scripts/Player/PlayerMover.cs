@@ -22,7 +22,6 @@ public class PlayerMover : MonoBehaviour {
 	[Header("Attack values")]
 	[Space]
 	[SerializeField] DealDamageOnTriggerEnter swordAttackBox;
-	bool isCurrentlyAttack = false;
 
 	[Header("Refs")][Space]
 	[SerializeField] Transform mouseRaycastTransform;
@@ -42,6 +41,7 @@ public class PlayerMover : MonoBehaviour {
 	Vector3 lookInput;
 	bool isAttackMelee;
 	bool isDash;
+	bool isCurrentlyAttack = false;
 	bool isCurrentlyDashing = false;
 
 	float defaultRunSpeed;
@@ -73,7 +73,6 @@ public class PlayerMover : MonoBehaviour {
 	void Update() {
 		currStepTime += Time.deltaTime;
 		ProcessInput();
-
 		if (!isCurrentlyDashing) {
 			cc.UpdateAnimator();            // updates the Animator Parameters
 		}
@@ -195,7 +194,6 @@ public class PlayerMover : MonoBehaviour {
 			return;
 
 		moveInput = context.ReadValue<Vector2>();
-
 		if (isUseGamepadControl && !isGamepadLookInput)
 			lookInput = moveInput;
 	}

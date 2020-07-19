@@ -62,6 +62,9 @@ public class PlayerRageBar : MonoBehaviour {
 		defaultBarScale = barParent.localScale;
 		defaultTextPos = comboTextField.rectTransform.anchoredPosition;
 
+	}
+
+	private void Start() {
 		Init();
 	}
 
