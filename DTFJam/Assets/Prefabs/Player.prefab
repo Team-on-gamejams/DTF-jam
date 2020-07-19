@@ -2643,7 +2643,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.578, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3413,8 +3413,8 @@ RectTransform:
   m_Father: {fileID: 6404925565654903357}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.578, y: 0}
-  m_AnchorMax: {x: 0.578, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4402,6 +4402,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b8cd3cd30594ed849b934fe91ebb88dc, type: 3}
   - {fileID: 8300000, guid: 4ef679fc03a3cc849b7fe0e321c66872, type: 3}
   - {fileID: 8300000, guid: 4ef5474112b21ce4b8ea5021bc6d3f2b, type: 3}
+  dashClips:
+  - {fileID: 8300000, guid: 2c098c4a4b9166b40a4485cf4d15f279, type: 3}
+  - {fileID: 8300000, guid: ff735176a40ae6b4abb242550269c2ba, type: 3}
   mouseRaycastLayer: 8
   swordAttackBox: {fileID: 6404925566406721735}
   mouseRaycastTransform: {fileID: 6404925566655417193}
@@ -6989,6 +6992,11 @@ PrefabInstance:
       value: "\u0427\u0442\u043E? \u041E \u0447\u0435\u043C \u0442\u044B? \u0414\u0430
         \u0438 \u043A\u0442\u043E \u0442\u044B \u0432\u043E\u043E\u0431\u0449\u0435?"
       objectReference: {fileID: 0}
+    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
+        type: 3}
+      propertyPath: textTyping
+      value: 
+      objectReference: {fileID: 8300000, guid: de226e25959528e40862a6007042a1ad, type: 3}
     - target: {fileID: 2283265625102287159, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
