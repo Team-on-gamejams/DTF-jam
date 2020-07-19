@@ -171,6 +171,8 @@ public class AudioManager : Singleton<AudioManager> {
 
 		IEnumerator FadeVolumeRoutine() {
 			float currTime = 0.0f;
+			if (audioSource == null)
+				yield break;
 			float startVolume = audioSource.volume;
 
 			do {

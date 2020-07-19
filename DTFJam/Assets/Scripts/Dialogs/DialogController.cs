@@ -70,7 +70,7 @@ public class DialogController : MonoBehaviour
     }
 
     public void StartDialogue(Action onEndDialogue) {
-        if(currDialogId >= 2) {
+        if(currDialogId >= 2 && GameManager.Instance.levelsManager.CurrLevel == 0) {
             onEndDialogue?.Invoke();
         }
         else {
