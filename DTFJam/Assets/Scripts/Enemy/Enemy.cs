@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class Enemy : MonoBehaviour
 {
-    protected enum States { Idle, Chase, Attack, Dead }
+    protected enum States { Idle, Chase, Attack, Escape, Dead }
 
     protected States _state = States.Idle;
 
@@ -19,10 +19,18 @@ public class Enemy : MonoBehaviour
     [Header("Attack Properties")]
     private float _curAttackCD;
 
+    [Header("Escape Properties")]
+    [SerializeField] private float _escapeDurationMin;
+    [SerializeField] private float _escapeDurationMax;
+    [SerializeField] private float _escapeDistanceMin;
+    [SerializeField] private float _escapeDistanceMax;
+    private float _curEscapeDuration;
+
     private UnityEvent _attackEvent = new UnityEvent();
     private UnityAction _attackAction;
 
     // References
+    [Space]
     [SerializeField] private DealDamageOnTriggerEnter _swordAttackBox;
     protected Rigidbody _rigidBody;
     protected Weapon _weapon;
@@ -60,11 +68,15 @@ public class Enemy : MonoBehaviour
             case States.Attack:
                 Attack();
                 break;
+            case States.Escape:
+                Escape();
+                break;
         }
     }
 
     protected void SwitchState(States newState)
     {
+        _curEscapeDuration = 0f;
         _state = newState;
     }
 
@@ -102,10 +114,32 @@ public class Enemy : MonoBehaviour
             }
             else
             {
+                if(_weapon.attackType == AttackType.Range && Vector3.Distance(_playerTransform.position, _myTransform.position) < 5f)
+                {
+                    SwitchState(States.Escape);
+                    return;
+                }
+
                 _myTransform.forward = GetForward();
                 _attackEvent.Invoke();
             }
         }
+    }
+
+    protected void Escape()
+    {
+        if (_curEscapeDuration <= 0f)
+        {
+            _myTransform.forward = -GetForward();
+            _navAgent.SetDestination(_myTransform.forward * Random.Range(_escapeDistanceMin, _escapeDistanceMax));
+            _curEscapeDuration = Random.Range(_escapeDurationMin, _escapeDurationMax) + Time.time;
+        }
+        else if(_curEscapeDuration <= Time.time)
+        {
+            _navAgent.ResetPath();
+            SwitchState(States.Chase);
+        }
+
     }
 
     private void PlayerSearch()
