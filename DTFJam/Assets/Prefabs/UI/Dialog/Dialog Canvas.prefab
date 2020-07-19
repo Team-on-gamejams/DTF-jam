@@ -398,12 +398,14 @@ MonoBehaviour:
       \u0442\u0430\u043A \u0447\u0442\u043E \u0434\u0430\u0432\u0430\u0439 \u043A
       \u0434\u0435\u043B\u0443"
     character: {fileID: 21300000, guid: 2f77132f009339e4eb145cee0de942ab, type: 3}
+  _dialogs3: []
   _characterImage: {fileID: 2283265625591744690}
   _text: {fileID: 2283265625219137630}
   _textName: {fileID: 6139460835359354243}
   cameraAnimator: {fileID: 0}
   noiceClip: {fileID: 8300000, guid: d5b64b6e802031a46951a8e60acf59c3, type: 3}
   textTyping: {fileID: 0}
+  bossClip: {fileID: 0}
   _textDelay: 3
 --- !u!1 &2283265625219137628
 GameObject:
@@ -989,8 +991,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 131.64001, y: 0}
-  m_SizeDelta: {x: 324.7735, y: 37.87896}
+  m_AnchoredPosition: {x: 163, y: 0}
+  m_SizeDelta: {x: 272.3349, y: 37.87896}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3666564254927606529
 CanvasRenderer:
