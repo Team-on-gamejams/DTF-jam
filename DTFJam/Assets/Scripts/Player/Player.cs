@@ -22,6 +22,7 @@ public class Player : MonoBehaviour {
 	[Header("Refs")]
 	[Space]
 	public PlayerMover mover = null;
+	public DialogController dialog = null;
 	[SerializeField] Health health = null;
 	[SerializeField] PlayerTimer timer = null;
 	[SerializeField] PlayerRageBar rageBar = null;

@@ -1,93 +1,118 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using System;
 
 public class DialogController : MonoBehaviour
 {
-    [HideInInspector] public UnityEvent dialogStart = new UnityEvent();
-    [HideInInspector] public UnityEvent dialogEnd = new UnityEvent();
     [SerializeField] private List<Dialog> _dialogs = new List<Dialog>();
-    private int _curDialogNumber;
+    [SerializeField] private List<Dialog> _dialogs2 = new List<Dialog>();
+
+    [Space]
     [SerializeField] private Image _characterImage = null;
     [SerializeField] private TextMeshProUGUI _text;
-    Transform _imageTransform;
+    [SerializeField] private TextMeshProUGUI _textName;
+    [SerializeField] private Animator cameraAnimator;
+    [SerializeField] private AudioClip noiceClip;
+    private int _curDialogNumber;
 
     [Header("Parameters")]
     [SerializeField] private int _textDelay = 5;
-    private Vector2 _characterStartPosition;
-    [SerializeField] private Vector2 _characterPosition;
-    [SerializeField] private float _slideDuration = .5f;
 
     private CanvasGroup canvasGroup;
     bool _switchDialog = false;
     bool _isClosing = false;
+    bool isShowed = false;
+
+    Action onEndDialogue;
+    int currDialogId = 0;
 
     private void Awake()
     {
-        //if (GameManager.isNewGame == false)
-        //    Destroy(gameObject);
-
         canvasGroup = GetComponent<CanvasGroup>();
-        _imageTransform = _characterImage.transform;
-        _characterStartPosition = _imageTransform.localPosition;
-        StartCoroutine(MainCoroutine());
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            _switchDialog = Next();
-
         if (_isClosing)
         {
             canvasGroup.alpha -= Time.deltaTime * 2f;
 
-            if (canvasGroup.alpha <= 0f)
-            {
-                dialogEnd.Invoke();
-                Destroy(gameObject);
+            if (canvasGroup.alpha <= 0) {
+                _isClosing = false;
             }
         }
-        else if (canvasGroup.alpha < 1f)
+        else if (isShowed && canvasGroup.alpha < 1f)
         {
             canvasGroup.alpha += Time.deltaTime;
+        }
+
+        if (!isShowed)
+            return;
+
+        if (Mouse.current.leftButton.wasPressedThisFrame || 
+            Mouse.current.rightButton.wasPressedThisFrame ||
+            Keyboard.current.anyKey.wasPressedThisFrame ||
+            Gamepad.current.buttonEast.wasPressedThisFrame ||
+            Gamepad.current.buttonNorth.wasPressedThisFrame ||
+            Gamepad.current.buttonSouth.wasPressedThisFrame ||
+            Gamepad.current.buttonWest.wasPressedThisFrame ||
+            Gamepad.current.leftShoulder.wasPressedThisFrame ||
+            Gamepad.current.rightShoulder.wasPressedThisFrame
+            )
+            _switchDialog = Next();
+    }
+
+    public void StartDialogue(Action onEndDialogue) {
+        if(currDialogId >= 2) {
+            onEndDialogue?.Invoke();
+        }
+        else {
+            isShowed = true;
+            this.onEndDialogue = onEndDialogue;
+            StartCoroutine(MainCoroutine());
         }
     }
 
     private IEnumerator MainCoroutine()
     {
-        dialogStart.Invoke();
+        List<Dialog> currDialog = currDialogId == 0 ? _dialogs : _dialogs2;
 
-        for (_curDialogNumber = 0; _curDialogNumber < _dialogs.Count; _curDialogNumber++)
+        for (_curDialogNumber = 0; _curDialogNumber < currDialog.Count; _curDialogNumber++)
         {
+
             _switchDialog = false;
             _text.maxVisibleCharacters = 1;
-            _imageTransform.localPosition = _characterStartPosition;
-            _characterImage.sprite = _dialogs[_curDialogNumber].character;
-            _text.text = _dialogs[_curDialogNumber].text;
+            _characterImage.sprite = currDialog[_curDialogNumber].character;
+            _text.text = currDialog[_curDialogNumber].text;
+            _textName.text = currDialog[_curDialogNumber].name;
 
             int delayCounter = 0;
 
+            if (_curDialogNumber == 0 && currDialogId == 0) {
+                cameraAnimator.SetTrigger("Dialog1Glitch");
+                AudioSource source = null;
+                LeanTween.delayedCall(0.1f, () => { 
+                    source = AudioManager.Instance.PlayFaded(noiceClip,fadeTime: 0.2f, channel: AudioManager.AudioChannel.Sound);
+                });
+                LeanTween.delayedCall(1f, () => {
+                    AudioManager.Instance.FadeVolume(source, 0.0f, 0.2f);
+                });
+            }
+
             while (_switchDialog == false)
             {
-                if (delayCounter >= _textDelay && _text.maxVisibleCharacters < _dialogs[_curDialogNumber].text.Length)
+                if (delayCounter >= _textDelay && _text.maxVisibleCharacters < currDialog[_curDialogNumber].text.Length)
                 {
                     delayCounter = 0;
                     _text.maxVisibleCharacters++;
                 }
-
-                if(_imageTransform.localPosition.x > _characterPosition.x)
-                {
-                    float slideSpeed = Time.deltaTime / _slideDuration;
-                    _imageTransform.localPosition = Vector3.Lerp(_imageTransform.localPosition, _characterPosition, slideSpeed);
-                    
-                }
-
 
                 delayCounter++;
 
@@ -96,14 +121,21 @@ public class DialogController : MonoBehaviour
         }
 
         _isClosing = true;
+        isShowed = false;
+        _switchDialog = false;
+        ++currDialogId;
+
+        onEndDialogue?.Invoke();
+        onEndDialogue = null;
     }
 
     private bool Next()
     {
-
-        if (_curDialogNumber < _dialogs.Count && _text.maxVisibleCharacters < _dialogs[_curDialogNumber].text.Length)
+        List<Dialog> currDialog = currDialogId == 0 ? _dialogs : _dialogs2;
+      
+        if (_curDialogNumber < currDialog.Count && _text.maxVisibleCharacters < currDialog[_curDialogNumber].text.Length)
         {
-            _text.maxVisibleCharacters = _dialogs[_curDialogNumber].text.Length;
+            _text.maxVisibleCharacters = currDialog[_curDialogNumber].text.Length;
             return false;
         }
         else
@@ -113,9 +145,10 @@ public class DialogController : MonoBehaviour
     }
 }
 
-[System.Serializable]
+[Serializable]
 public struct Dialog
 {
+    public string name;
     public string text;
     public Sprite character;
 }
