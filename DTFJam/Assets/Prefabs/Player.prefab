@@ -6862,11 +6862,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6404925566319977647}
     m_Modifications:
-    - target: {fileID: 2244564939817803486, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2283265625102287155, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}
       propertyPath: m_Name
@@ -6977,10 +6972,15 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287158, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
+    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}
-      propertyPath: m_Alpha
-      value: 0
+      propertyPath: cameraAnimator
+      value: 
+      objectReference: {fileID: 6404925566682334350}
+    - target: {fileID: 2283265625102287159, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3797526069090707703, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}

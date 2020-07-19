@@ -12,17 +12,18 @@ using System;
 public class DialogController : MonoBehaviour
 {
     [SerializeField] private List<Dialog> _dialogs = new List<Dialog>();
+    [SerializeField] private List<Dialog> _dialogs2 = new List<Dialog>();
 
     [Space]
     [SerializeField] private Image _characterImage = null;
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private TextMeshProUGUI _textName;
+    [SerializeField] private Animator cameraAnimator;
+    [SerializeField] private AudioClip noiceClip;
     private int _curDialogNumber;
-    Transform _imageTransform;
 
     [Header("Parameters")]
     [SerializeField] private int _textDelay = 5;
-    [SerializeField] private float _slideDuration = .5f;
 
     private CanvasGroup canvasGroup;
     bool _switchDialog = false;
@@ -30,11 +31,11 @@ public class DialogController : MonoBehaviour
     bool isShowed = false;
 
     Action onEndDialogue;
+    int currDialogId = 0;
 
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-        _imageTransform = _characterImage.transform;
     }
 
     private void Update()
@@ -43,8 +44,9 @@ public class DialogController : MonoBehaviour
         {
             canvasGroup.alpha -= Time.deltaTime * 2f;
 
-            if (canvasGroup.alpha <= 0)
+            if (canvasGroup.alpha <= 0) {
                 _isClosing = false;
+            }
         }
         else if (isShowed && canvasGroup.alpha < 1f)
         {
@@ -68,26 +70,45 @@ public class DialogController : MonoBehaviour
     }
 
     public void StartDialogue(Action onEndDialogue) {
-        isShowed = true;
-        this.onEndDialogue = onEndDialogue;
-        StartCoroutine(MainCoroutine());
+        if(currDialogId >= 2) {
+            onEndDialogue?.Invoke();
+        }
+        else {
+            isShowed = true;
+            this.onEndDialogue = onEndDialogue;
+            StartCoroutine(MainCoroutine());
+        }
     }
 
     private IEnumerator MainCoroutine()
     {
-        for (_curDialogNumber = 0; _curDialogNumber < _dialogs.Count; _curDialogNumber++)
+        List<Dialog> currDialog = currDialogId == 0 ? _dialogs : _dialogs2;
+
+        for (_curDialogNumber = 0; _curDialogNumber < currDialog.Count; _curDialogNumber++)
         {
+
             _switchDialog = false;
             _text.maxVisibleCharacters = 1;
-            _characterImage.sprite = _dialogs[_curDialogNumber].character;
-            _text.text = _dialogs[_curDialogNumber].text;
-            _textName.text = _dialogs[_curDialogNumber].name;
+            _characterImage.sprite = currDialog[_curDialogNumber].character;
+            _text.text = currDialog[_curDialogNumber].text;
+            _textName.text = currDialog[_curDialogNumber].name;
 
             int delayCounter = 0;
 
+            if (_curDialogNumber == 0 && currDialogId == 0) {
+                cameraAnimator.SetTrigger("Dialog1Glitch");
+                AudioSource source = null;
+                LeanTween.delayedCall(0.1f, () => { 
+                    source = AudioManager.Instance.PlayFaded(noiceClip,fadeTime: 0.2f, channel: AudioManager.AudioChannel.Sound);
+                });
+                LeanTween.delayedCall(1f, () => {
+                    AudioManager.Instance.FadeVolume(source, 0.0f, 0.2f);
+                });
+            }
+
             while (_switchDialog == false)
             {
-                if (delayCounter >= _textDelay && _text.maxVisibleCharacters < _dialogs[_curDialogNumber].text.Length)
+                if (delayCounter >= _textDelay && _text.maxVisibleCharacters < currDialog[_curDialogNumber].text.Length)
                 {
                     delayCounter = 0;
                     _text.maxVisibleCharacters++;
@@ -101,6 +122,8 @@ public class DialogController : MonoBehaviour
 
         _isClosing = true;
         isShowed = false;
+        _switchDialog = false;
+        ++currDialogId;
 
         onEndDialogue?.Invoke();
         onEndDialogue = null;
@@ -108,9 +131,11 @@ public class DialogController : MonoBehaviour
 
     private bool Next()
     {
-        if (_curDialogNumber < _dialogs.Count && _text.maxVisibleCharacters < _dialogs[_curDialogNumber].text.Length)
+        List<Dialog> currDialog = currDialogId == 0 ? _dialogs : _dialogs2;
+      
+        if (_curDialogNumber < currDialog.Count && _text.maxVisibleCharacters < currDialog[_curDialogNumber].text.Length)
         {
-            _text.maxVisibleCharacters = _dialogs[_curDialogNumber].text.Length;
+            _text.maxVisibleCharacters = currDialog[_curDialogNumber].text.Length;
             return false;
         }
         else
