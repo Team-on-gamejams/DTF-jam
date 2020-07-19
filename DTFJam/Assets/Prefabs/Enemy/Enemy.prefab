@@ -95,9 +95,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackType: 0
-  attackRange: 1
+  attackRange: 1.5
   attackCD: 1
-  prepareTime: 0.3
+  prepareTime: 0.2
   _bulletNumber: 2
   _delayBtwShots: 0.2
   _bulletSpeed: 10
@@ -1397,8 +1397,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1012cc92a73f56e45b21f3e9d722da4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chaseSpeed: 4
+  _chaseSpeed: 2
   _searchRadius: 20
+  _rotateSpeed: 1000
   _playerLayer:
     serializedVersion: 2
     m_Bits: 512

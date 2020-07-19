@@ -1563,6 +1563,7 @@ GameObject:
   - component: {fileID: 8294267364899545613}
   - component: {fileID: 8294267364899545649}
   - component: {fileID: 5432092313157067469}
+  - component: {fileID: 525058222}
   m_Layer: 0
   m_Name: EnemyBody
   m_TagString: Untagged
@@ -1598,7 +1599,7 @@ Animator:
   m_GameObject: {fileID: 8294267364899545615}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 340f99b8334a14c4a8a01dce6e1e5348, type: 3}
-  m_Controller: {fileID: 9100000, guid: cbd1db45c75e5b948a5befe9ecb80421, type: 2}
+  m_Controller: {fileID: 9100000, guid: 00991d57ec38e5442aa55e52a7616751, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1682,7 +1683,7 @@ MonoBehaviour:
   limitFallVelocity: -15
   groundLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 256
   groundMinDistance: 0.25
   groundMaxDistance: 0.5
   slopeLimit: 45
@@ -1721,6 +1722,28 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &525058222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8294267364899545615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a3b1cbfc187a340a79b3eed7ea2025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepSonds:
+  - {fileID: 8300000, guid: b5cbb9103584a024fb37e04d36e5f988, type: 3}
+  - {fileID: 8300000, guid: 5fef0709d3dfac2468c1ab5bdafa6d8e, type: 3}
+  - {fileID: 8300000, guid: 5df937b8e0e8afa46877f5d3e3583b6f, type: 3}
+  - {fileID: 8300000, guid: b8cd3cd30594ed849b934fe91ebb88dc, type: 3}
+  cc: {fileID: 8294267364899545613}
+  anim: {fileID: 8294267364899545650}
+  rb: {fileID: 8294267364899545651}
+  _swordAttackBox: {fileID: 0}
+  playerTransform: {fileID: 0}
 --- !u!1 &8294267364934235378
 GameObject:
   m_ObjectHideFlags: 0
@@ -2850,8 +2873,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1012cc92a73f56e45b21f3e9d722da4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chaseSpeed: 4
+  _chaseSpeed: 2
   _searchRadius: 20
+  _rotateSpeed: 1000
   _playerLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -2863,7 +2887,7 @@ MonoBehaviour:
   _weapon: {fileID: 5432092313987684045}
   _myTransform: {fileID: 8294267364899545614}
   _navAgent: {fileID: 5432092313157067469}
-  _animation: {fileID: 0}
+  _animation: {fileID: 525058222}
 --- !u!1 &8294267365476375828
 GameObject:
   m_ObjectHideFlags: 0

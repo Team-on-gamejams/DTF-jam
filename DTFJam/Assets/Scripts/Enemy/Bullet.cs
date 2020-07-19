@@ -38,11 +38,11 @@ public class Bullet : MonoBehaviour
             Health otherHealth = other.GetComponent<Health>();
 
             if (otherHealth == null)
-            {
                 otherHealth = other.GetComponent<HealthPass>()?.mainHealth;
-            }
 
-            otherHealth.GetHit();
+            if (otherHealth != null)
+                otherHealth.GetHit();
+
             Destroy(gameObject);
         }
     }
