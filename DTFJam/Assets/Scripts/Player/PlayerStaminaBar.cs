@@ -60,8 +60,7 @@ public class PlayerStaminaBar : MonoBehaviour {
 		currStamina = maxStamina;
 		currStaminaIncreaseTimeout = staminaIncreaseTimeout;
 
-		barFirst.value = currStamina;
-		barSecond.value = currStamina;
+		barFirst.value = barSecond.value = currStamina;
 	}
 
 	public bool IsEnoughStamina(float value) {

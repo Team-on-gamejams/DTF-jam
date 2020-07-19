@@ -26,6 +26,11 @@ public class PlayerRageBar : MonoBehaviour {
 	[SerializeField] float rageDecreaseTimeout = 3.0f;
 	[SerializeField] float rageDecreaseSpeed = 10.0f;
 
+	[Header("Audio")]
+	[Space]
+	[SerializeField] AudioClip combox5 = null;
+	[SerializeField] AudioClip combox10 = null;
+
 	[Header("UI")]
 	[Space]
 	[SerializeField] RectTransform barParent = null;
@@ -101,8 +106,7 @@ public class PlayerRageBar : MonoBehaviour {
 	public void Init() {
 		currRage = 0.0f;
 		currRageDecreaseTimeout = 0.0f;
-		barFirst.value = currRage;
-		barSecond.value = currRage;
+		barFirst.value = barSecond.value = currRage;
 		comboTextField.text = " ";
 
 		onRageValueChange?.Invoke();
@@ -123,6 +127,13 @@ public class PlayerRageBar : MonoBehaviour {
 		++comboCounter;
 		SetComboColor(comboCounter, comboTextField);
 		comboTextField.text = $"x{comboCounter}";
+
+		if(comboCounter == 5) {
+			AudioManager.Instance.Play(combox5, channel: AudioManager.AudioChannel.Sound);
+		}
+		else if(comboCounter % 10 == 0) {
+			AudioManager.Instance.Play(combox10, channel: AudioManager.AudioChannel.Sound);
+		}
 
 		AddRage(ragePerCombo);
 		return comboCounter;
