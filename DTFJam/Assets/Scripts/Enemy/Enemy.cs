@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     [Header("Main Properties")]
     [SerializeField] protected float _chaseSpeed = 8f;
     [SerializeField] protected float _searchRadius = 20f;
+    [SerializeField] private float _rotateSpeed = 20f;
     [SerializeField] private LayerMask _playerLayer;
 
     [Header("Attack Properties")]
@@ -39,6 +40,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] EnemyAnimation _animation;
     Transform _playerTransform;
 
+    private bool _canRotate = true;
+
     private void Awake()
     {
         _attackAction = new UnityAction(StartAttack);
@@ -49,6 +52,9 @@ public class Enemy : MonoBehaviour
     {
         if (GameManager.Instance.isPlaying == false)
             return;
+
+        if(_playerTransform != null && _canRotate)
+            Rotate();
 
         PlayerSearch();
 
@@ -71,6 +77,7 @@ public class Enemy : MonoBehaviour
 
     protected void SwitchState(States newState)
     {
+        _canRotate = true;
         _curEscapeDuration = 0f;
         _state = newState;
     }
@@ -82,7 +89,7 @@ public class Enemy : MonoBehaviour
 
     private void Chase()
     {
-        _myTransform.forward = GetForward();
+        //_myTransform.forward = GetForward();
         //_rigidBody.velocity = new Vector3(chaseDirection.x * _chaseSpeed, _rigidBody.velocity.y, chaseDirection.z * _chaseSpeed);
         _navAgent.speed = _chaseSpeed;
         _navAgent.SetDestination(_playerTransform.position);
@@ -112,7 +119,8 @@ public class Enemy : MonoBehaviour
                     return;
                 }
 
-                _myTransform.forward = GetForward();
+                //_myTransform.forward = GetForward();
+                _canRotate = true;
                 _attackEvent.Invoke();
             }
         }
@@ -169,11 +177,21 @@ public class Enemy : MonoBehaviour
             _weapon.StartCoroutine(_weapon.Shoot(_playerTransform.position));
         }
 
+        if(_weapon.attackType == AttackType.Melee)
+            _canRotate = false;
+
         _curAttackCD = _weapon.attackCD + Time.time;
     }
 
     private void SetAnimAttack()
     {
         _animation.anim.SetTrigger("IsAttack");
+    }
+
+    private void Rotate()
+    {
+        Vector3 targetDirection = (_playerTransform.position - _myTransform.position).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+        _myTransform.rotation = Quaternion.RotateTowards(_myTransform.rotation, targetRotation, Time.deltaTime * _rotateSpeed);
     }
 }

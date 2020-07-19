@@ -27,10 +27,7 @@ public class EnemyAnimation : MonoBehaviour
 	private Weapon _weapon;
 	private NavMeshAgent _navAgent;
 	private Camera _mainCamera;
-	public Transform playerTransform;
-
-	bool isAttackMelee;
-	bool isCurrentlyDashing = false;
+	[HideInInspector] public Transform playerTransform;
 
 	float defaultRunSpeed;
 	Vector3 startPos;
