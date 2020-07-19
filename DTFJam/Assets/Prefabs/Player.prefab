@@ -3562,7 +3562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01472ab451717946a40e2bd16ea86b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  regenerationMultiplier: 1
+  regenerationMultiplier: 0.5
   minStamina: 0
   maxStamina: 100
   staminaIncreaseTimeout: 0.5

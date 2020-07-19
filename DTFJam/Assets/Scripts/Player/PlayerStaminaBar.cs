@@ -64,7 +64,7 @@ public class PlayerStaminaBar : MonoBehaviour {
 	}
 
 	public bool IsEnoughStamina(float value) {
-		return currStamina != 0;
+		return currStamina >= value;
 	}
 
 	public void DecreaseStamina(float value) {
