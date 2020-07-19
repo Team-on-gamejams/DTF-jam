@@ -30,7 +30,7 @@ public class Health : MonoBehaviour {
 	[SerializeField] Transform healthBarPos = null;
 
 	protected virtual void Awake() {
-		currHit = maxHits;
+		Init();
 
 		if (barFirst == null && boolNeedToFindUI) {
 			FindBars();
@@ -81,6 +81,10 @@ public class Health : MonoBehaviour {
 			hpTextField.gameObject.SetActive(needShowOnInit);
 			hpTextField.text = $"{Mathf.RoundToInt(currHit)}/{Mathf.RoundToInt(maxHits)}";
 		}
+	}
+
+	public void Init() {
+		currHit = maxHits;
 	}
 
 	public void ShowBarIfHided() {

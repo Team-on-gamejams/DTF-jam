@@ -94,6 +94,7 @@ public class Player : MonoBehaviour {
 			timer.Init();
 			staminaBar.Init();
 			rageBar.Init();
+			health.Init();
 			mover.Respawn();
 			onRespawn?.Invoke();
 		});
