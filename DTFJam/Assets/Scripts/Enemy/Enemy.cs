@@ -148,6 +148,7 @@ public class Enemy : MonoBehaviour
         _navAgent.ResetPath();
         _navAgent.velocity = Vector3.zero;
         SwitchState(States.Dead);
+        _canRotate = false;
     }
 
     private void PlayerSearch()

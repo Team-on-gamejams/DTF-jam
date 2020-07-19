@@ -1285,6 +1285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75785018b5555eb4a86d629be8293839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timeToDestroy: 4
 --- !u!114 &1207545886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3620,6 +3621,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4069427864107579678}
     m_Modifications:
+    - target: {fileID: 6338975275179969520, guid: c87fb62065d15d84db7d08f9a3211967,
+        type: 3}
+      propertyPath: prepareTime
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8034724624119003832, guid: c87fb62065d15d84db7d08f9a3211967,
         type: 3}
       propertyPath: m_LocalPosition.x

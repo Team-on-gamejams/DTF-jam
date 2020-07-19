@@ -96,8 +96,10 @@ public class DealDamageOnTriggerEnter : MonoBehaviour {
 	{
 		if (other.gameObject.layer == Mathf.Log(_targetLayer, 2))
 		{
-			if(!isPlayerWeapon)
+			if (!isPlayerWeapon)
+			{
 				hitted.Clear();
+			}
 		}
 	}
 

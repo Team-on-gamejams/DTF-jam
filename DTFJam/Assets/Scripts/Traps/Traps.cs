@@ -8,19 +8,26 @@ public class Traps : MonoBehaviour
     [SerializeField] private float _duration = 2f;
     private float _curDelay;
     private float _curDuration;
-    [SerializeField] private LayerMask _targetLayer;
-    [SerializeField] private AudioClip _prepareClip;
+    //[SerializeField] private AudioClip _prepareClip;
     [SerializeField] private AudioClip _activateClip;
     [SerializeField] private AudioClip _hitClip;
 
     [SerializeField] private Animator _anim;
-    private Health _health;
+    private List<Health> _health = new List<Health>();
     private bool isActive;
     private int isActiveParamID;
+    [SerializeField] private GameObject _sparksParticles;
+    private ParticleSystem _sparks;
+    private Material _myMaterial;
+    private Color _matColor;
+    [ColorUsage(true, true)] [SerializeField] Color _activeColor;
+    private Coroutine _colorCoroutine;
 
     private void Start()
     {
         isActiveParamID = Animator.StringToHash("isActive");
+        _myMaterial = GetComponent<MeshRenderer>().material;
+        _matColor = _myMaterial.color;
     }
 
     // Update is called once per frame
@@ -30,16 +37,28 @@ public class Traps : MonoBehaviour
         {
             isActive = true;
             _anim.SetBool(isActiveParamID, isActive);
-            AudioManager.Instance.Play(_activateClip, channel: AudioManager.AudioChannel.Sound);
+            _sparks = Instantiate(_sparksParticles, transform).GetComponent<ParticleSystem>();
+            Invoke("DestroyParticle", _sparks.main.duration);
+            //AudioManager.Instance.Play(_activateClip, channel: AudioManager.AudioChannel.Sound);
             _curDelay = 0f;
             _curDuration = _duration + Time.time;
+
+            if(_colorCoroutine != null)
+                StopCoroutine(_colorCoroutine);
+
+            _colorCoroutine = StartCoroutine(ChangeColor(_matColor, _duration, 1f));
         }
 
-        if(isActive && _health != null)
+        if(isActive && _health.Count > 0)
         {
             AudioManager.Instance.Play(_hitClip, channel: AudioManager.AudioChannel.Sound);
-            _health.GetHit();
-            _health = null;
+            
+            foreach(Health h in _health)
+            {
+                h.GetHit();
+            }
+
+            _health.Clear();
         }
 
         if(isActive && _curDuration <= Time.time)
@@ -51,25 +70,62 @@ public class Traps : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == Mathf.Log(_targetLayer, 2))
+        if(other.gameObject.layer == 9 || other.gameObject.layer == 10)
         {
-            if (isActive == false)
+            if (_curDelay <= 0f)
             {
                 _curDelay = _activationDelay + Time.time;
-                AudioManager.Instance.Play(_prepareClip, channel: AudioManager.AudioChannel.Sound);
-                _health = other.GetComponent<Health>();
+                //AudioManager.Instance.Play(_prepareClip, channel: AudioManager.AudioChannel.Sound);
+                AudioManager.Instance.Play(_activateClip, channel: AudioManager.AudioChannel.Sound);
 
-                if (_health == null)
-                    _health = other.GetComponent<HealthPass>()?.mainHealth;
+                if (_colorCoroutine != null)
+                    StopCoroutine(_colorCoroutine);
+
+                _colorCoroutine = StartCoroutine(ChangeColor(_activeColor, _activationDelay));
             }
+
+            Health otherHealth = other.GetComponent<Health>();
+
+            if (otherHealth == null)
+            {
+                otherHealth = other.GetComponent<HealthPass>()?.mainHealth;
+                _health.Add(otherHealth);
+            }
+            else
+                _health.Add(otherHealth);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == Mathf.Log(_targetLayer, 2))
+        if (other.gameObject.layer == 9 || other.gameObject.layer == 10)
         {
-            _health = null;
+            Health otherHealth = other.GetComponent<Health>();
+
+            if (otherHealth == null)
+                otherHealth = other.GetComponent<HealthPass>()?.mainHealth;
+
+            _health.Remove(otherHealth);
+            _health.Clear();
+        }
+    }
+
+    private void DestroyParticle()
+    {
+        _sparks.Stop();
+    }
+
+    private IEnumerator ChangeColor(Color color, float time, float delay = 0f)
+    {
+        yield return new WaitForSeconds(delay);
+        time -= delay;
+
+        while (_myMaterial.color != color)
+        {
+            _myMaterial.color = Color.Lerp(_myMaterial.color, color, Time.deltaTime / time);
+            time -= Time.deltaTime;
+
+            yield return new WaitForEndOfFrame();
         }
     }
 }
