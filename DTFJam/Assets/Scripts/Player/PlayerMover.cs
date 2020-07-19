@@ -84,6 +84,7 @@ public class PlayerMover : MonoBehaviour {
 
 	public void OnEnterNewLevel(Transform newSpawnPos) {
 		startPos = newSpawnPos.position;
+		transform.position = newSpawnPos.position;
 	}
 
 	public void Respawn() {

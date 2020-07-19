@@ -40,7 +40,8 @@ public class Level : MonoBehaviour {
 		}
 
 		for (int i = 0; i < enemyPositions.Count; ++i)
-			Destroy(enemies[i].gameObject);
+			if(enemies[i] != null)
+				Destroy(enemies[i].gameObject);
 		enemies = null;
 
 		GameManager.Instance.player.onRespawn -= OnPlayerRespawn;

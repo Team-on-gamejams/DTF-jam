@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelsManager : MonoBehaviour {
+	public int CurrLevel => currLevel;
+
 	[SerializeField] Level[] levels;
 	int currLevel = 0;
 
@@ -23,6 +25,17 @@ public class LevelsManager : MonoBehaviour {
 			else {
 				levels[i].SetAsUnusedAtInit();
 			}
+		}
+	}
+
+	public void LoadNextLevel() {
+		levels[currLevel].UnInitLevel();
+		++currLevel;
+		if(currLevel == levels.Length) {
+			//TODO: endd of game
+		}
+		else {
+			levels[currLevel].InitLevel();
 		}
 	}
 }

@@ -52,6 +52,18 @@ public class MainMenuInGame : MonoBehaviour {
 #endif
 	}
 
+	public void StartGameOnNewLevel() {
+		float crossTime = 3.0f;
+
+		if(GameManager.Instance.ambient != null) {
+			AudioManager.Instance.FadeVolume(GameManager.Instance.ambient, 0.0f, crossTime);
+			Destroy(GameManager.Instance.ambient.gameObject, crossTime + 1.0f);
+		}
+		GameManager.Instance.ambient = AudioManager.Instance.PlayFaded(battleAmbient, fadeTime: crossTime, channel: AudioManager.AudioChannel.Music);
+
+		GameManager.Instance.isPlaying = true;
+	}
+
 	void OnDialogueEnd() {
 		Debug.Log("Starting game");
 

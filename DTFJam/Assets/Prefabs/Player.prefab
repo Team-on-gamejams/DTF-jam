@@ -3521,6 +3521,7 @@ MonoBehaviour:
   timer: {fileID: 7086564284671095878}
   rageBar: {fileID: 6404925567401882062}
   staminaBar: {fileID: 6404925567401882063}
+  menu: {fileID: 687147895}
   anim: {fileID: 7316267074304133282}
   cameraAnim: {fileID: 6404925566682334350}
 --- !u!114 &6404925567401882062
@@ -6862,6 +6863,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6404925566319977647}
     m_Modifications:
+    - target: {fileID: 2046199886917173132, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
+        type: 3}
+      propertyPath: m_padding
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2283265625102287155, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}
       propertyPath: m_Name
@@ -6991,6 +6997,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8507483251268885830, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
+        type: 3}
+      propertyPath: m_padding
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9059745573740006404, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}

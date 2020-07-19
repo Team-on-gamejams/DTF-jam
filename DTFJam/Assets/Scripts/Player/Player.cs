@@ -27,6 +27,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] PlayerTimer timer = null;
 	[SerializeField] PlayerRageBar rageBar = null;
 	[SerializeField] PlayerStaminaBar staminaBar = null;
+	[SerializeField] MainMenuInGame menu = null;
 	[SerializeField] Animator anim = null;
 	[SerializeField] Animator cameraAnim = null;
 
@@ -68,6 +69,48 @@ public class Player : MonoBehaviour {
 
 	public void OnEnterNewLevel(Transform newSpawnPos) {
 		mover.OnEnterNewLevel(newSpawnPos);
+	}
+
+	public void TransitToNewLevel(Action onTransit) {
+		GameManager.Instance.isPlaying = false;
+		mover.OnDie();
+
+		Destroy(GameManager.Instance.ambient.gameObject);
+		AudioManager.Instance.Play(dieClip, channel: AudioManager.AudioChannel.Sound);
+		AudioSource analogNoiceas = AudioManager.Instance.PlayFaded(analogNoice, channel: AudioManager.AudioChannel.Sound);
+		analogNoiceas.volume = 0.7f;
+
+		cameraAnim.SetInteger("DieAnimation", Random.Range(1, cameraAnimsCount));
+
+		LeanTween.value(analogNoiceas.volume, 1.0f, 0.1f)
+			.setDelay(2.2f)
+			.setOnUpdate((float v) => {
+				analogNoiceas.volume = v;
+			});
+
+		LeanTween.delayedCall(2.5f, () => {
+			cameraAnim.SetInteger("DieAnimation", 0);
+
+			timer.Init();
+			staminaBar.Init();
+			rageBar.Init();
+			health.Init();
+			mover.Respawn();
+			onTransit?.Invoke();
+		});
+
+		LeanTween.value(analogNoiceas.volume, 0.7f, 0.1f)
+			.setDelay(2.6f)
+			.setOnUpdate((float v) => {
+				analogNoiceas.volume = v;
+			});
+
+		LeanTween.delayedCall(5.0f, () => {
+			if (analogNoiceas != null)
+				Destroy(analogNoiceas.gameObject);
+			AudioManager.Instance.Play(spawnClip, channel: AudioManager.AudioChannel.Sound);
+			menu.StartGameOnNewLevel();
+		});
 	}
 
 	void Die() {
