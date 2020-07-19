@@ -36,7 +36,7 @@ public class EnemyAnimation : MonoBehaviour
 	const float minStepTime = 0.1f;
 	float currStepTime = 0.0f;
 
-	private int _dieAnimationCount = 10;
+	private int _dieAnimationCount = 8;
 
 	void Awake()
 	{
