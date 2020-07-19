@@ -369,6 +369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuAmbient: {fileID: 8300000, guid: a26ebe7b541e3d24db537f85f0db06ca, type: 3}
   battleAmbient: {fileID: 8300000, guid: 90eaa53ce430f094eab13b55c3899771, type: 3}
+  firstButton: {fileID: 838653103}
   cg: {fileID: 687147896}
   startFader: {fileID: 1694332875}
   animCamera: {fileID: 6404925566682334350}
