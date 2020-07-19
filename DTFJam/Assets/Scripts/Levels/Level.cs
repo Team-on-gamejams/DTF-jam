@@ -55,15 +55,13 @@ public class Level : MonoBehaviour {
 
 	public void OnPlayerRespawn() {
 		for (int i = 0; i < enemyPositions.Count; ++i) {
-			if(enemies[i] == null) {
-				GameObject go = Instantiate(enemyPrefabs[i], enemyPositions[i].position, enemyPositions[i].rotation, transform);
-				go.name = enemyPositions[i].name.Substring(0, enemyPositions[i].name.Length - 4);
-				enemies[i] = go.GetComponent<Enemy>();
+			if(enemies[i] != null) {
+				Destroy(enemies[i].gameObject);
 			}
-			else {
-				enemies[i].transform.position = enemyPositions[i].position;
-				enemies[i].transform.rotation = enemyPositions[i].rotation;
-			}
+
+			GameObject go = Instantiate(enemyPrefabs[i], enemyPositions[i].position, enemyPositions[i].rotation, transform);
+			go.name = enemyPositions[i].name.Substring(0, enemyPositions[i].name.Length - 4);
+			enemies[i] = go.GetComponent<Enemy>();
 		}
 	}
 

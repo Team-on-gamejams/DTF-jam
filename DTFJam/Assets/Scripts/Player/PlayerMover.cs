@@ -13,6 +13,8 @@ public class PlayerMover : MonoBehaviour {
 
 	[Header("Audio")] [Space]
 	[SerializeField] AudioClip[] stepSonds;
+	[SerializeField] AudioClip[] dashClips = null;
+	int currDashClip = 0;
 	int currStepSound = 0;
 
 	[Header("Mouse pointer")][Space]
@@ -149,6 +151,10 @@ public class PlayerMover : MonoBehaviour {
 		cc.UpdateMotor();               // updates the ThirdPersonMotor methods
 		cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
 		cc.ControlRotationType();       // handle the controller rotation type
+
+		AudioManager.Instance.Play(dashClips[currDashClip++], channel: AudioManager.AudioChannel.Sound);
+		if (currDashClip >= dashClips.Length)
+			currDashClip = 0;
 
 		Vector3 dashDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
 

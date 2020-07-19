@@ -20,6 +20,7 @@ public class DialogController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _textName;
     [SerializeField] private Animator cameraAnimator;
     [SerializeField] private AudioClip noiceClip;
+    [SerializeField] private AudioClip textTyping;
     private int _curDialogNumber;
 
     [Header("Parameters")]
@@ -32,6 +33,7 @@ public class DialogController : MonoBehaviour
 
     Action onEndDialogue;
     int currDialogId = 0;
+    AudioSource typing;
 
     private void Awake()
     {
@@ -106,18 +108,26 @@ public class DialogController : MonoBehaviour
                 });
             }
 
+            typing = AudioManager.Instance.PlayLoop(textTyping, channel: AudioManager.AudioChannel.Sound);
             while (_switchDialog == false)
             {
                 if (delayCounter >= _textDelay && _text.maxVisibleCharacters < currDialog[_curDialogNumber].text.Length)
                 {
                     delayCounter = 0;
                     _text.maxVisibleCharacters++;
+
+                    if (_text.maxVisibleCharacters > currDialog[_curDialogNumber].text.Length - 5) {
+                        if(typing != null)
+                            AudioManager.Instance.FadeVolume(typing, 0.0f, 0.2f);
+                    }
                 }
 
                 delayCounter++;
 
                 yield return new WaitForEndOfFrame();
             }
+            if(typing != null)
+                Destroy(typing.gameObject);
         }
 
         _isClosing = true;
@@ -135,6 +145,8 @@ public class DialogController : MonoBehaviour
       
         if (_curDialogNumber < currDialog.Count && _text.maxVisibleCharacters < currDialog[_curDialogNumber].text.Length)
         {
+            if (typing != null)
+                Destroy(typing.gameObject);
             _text.maxVisibleCharacters = currDialog[_curDialogNumber].text.Length;
             return false;
         }
