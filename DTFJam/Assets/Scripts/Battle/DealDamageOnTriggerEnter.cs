@@ -22,10 +22,13 @@ public class DealDamageOnTriggerEnter : MonoBehaviour {
 	bool isAttacking = false;
 
 	public void CheckHit() {
-		hitCollider.enabled = true;
+		if(isPlayerWeapon)
+			hitCollider.enabled = true;
 	}
 
 	public void AttackStart() {
+		if (!isPlayerWeapon)
+			hitCollider.enabled = true;
 		isAttacking = true;
 
 		sb.Clear();
