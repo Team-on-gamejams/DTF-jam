@@ -1563,6 +1563,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerWeapon: 1
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   missClips:
   - {fileID: 8300000, guid: 11d525b2827b63c4d8ae5572d3259f37, type: 3}
   - {fileID: 8300000, guid: 4fe9b56602a731e4cba3c7ded2ca1e2e, type: 3}

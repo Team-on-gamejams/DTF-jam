@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,7 @@ public class DealDamageOnTriggerEnter : MonoBehaviour {
 	static StringBuilder sb = new StringBuilder(64);
 
 	[SerializeField] bool isPlayerWeapon;
+	[SerializeField] LayerMask _targetLayer;
 
 	[Header("Audio")]
 	[Space]
@@ -26,9 +28,13 @@ public class DealDamageOnTriggerEnter : MonoBehaviour {
 			hitCollider.enabled = true;
 	}
 
-	public void AttackStart() {
+	public void EnableCollider()
+    {
 		if (!isPlayerWeapon)
 			hitCollider.enabled = true;
+	}
+
+	public void AttackStart() {
 		isAttacking = true;
 
 		sb.Clear();
@@ -53,26 +59,42 @@ public class DealDamageOnTriggerEnter : MonoBehaviour {
 		hitCollider.enabled = false;
 		isAttacking = false;
 
-		hitted.Clear();
+		if(isPlayerWeapon)
+			hitted.Clear();
 	}
 
 	private void OnTriggerEnter(Collider other) {
-		
-		Health otherHealth = other.GetComponent<Health>();
-		if(otherHealth == null) {
-			otherHealth = other.GetComponent<HealthPass>()?.mainHealth;
-		}
+		if (other.gameObject.layer == Mathf.Log(_targetLayer, 2))
+		{
+			Health otherHealth = other.GetComponent<Health>();
+			if (otherHealth == null)
+			{
+				otherHealth = other.GetComponent<HealthPass>()?.mainHealth;
+			}
 
-		if (otherHealth != null && !other.isTrigger) {
-			hitted.Add(otherHealth);
+			if (otherHealth != null && !other.isTrigger)
+			{
+				if((!isPlayerWeapon && hitted.Count <= 0) || isPlayerWeapon)
+					hitted.Add(otherHealth);
 
-			if (isAttacking) {
-				DealHit(otherHealth);
+				if (isAttacking)
+				{
+					DealHit(otherHealth);
+				}
 			}
 		}
 	}
 
-	void DealHit(Health health) {
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.layer == Mathf.Log(_targetLayer, 2))
+		{
+			if(!isPlayerWeapon)
+				hitted.Clear();
+		}
+	}
+
+    void DealHit(Health health) {
 		if (isPlayerWeapon) {
 			health.isUnderPlayerAttack = true;
 		}

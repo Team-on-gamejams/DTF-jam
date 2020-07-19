@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour
     public float attackRange = 2f;
     public float attackCD = 1f;
     public float prepareTime = .5f;
+    [SerializeField] private AudioClip[] _attackClips;
 
     [Header("Range Properties")]
     [SerializeField] private int _bulletNumber = 2;
@@ -31,6 +32,8 @@ public class Weapon : MonoBehaviour
             Bullet bullet = Instantiate(_bulletPrefab, _barrelTransform.position, Quaternion.Euler(rot)).GetComponent<Bullet>();
             bullet.speed = _bulletSpeed;
             bullet.playerPosition = playerPosition;
+
+            AudioManager.Instance.Play(_attackClips.Random(), channel: AudioManager.AudioChannel.Sound);
 
             yield return new WaitForSeconds(_delayBtwShots);
         }
