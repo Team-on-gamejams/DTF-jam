@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -9,6 +10,7 @@ using UnityEditor;
 public class Level : MonoBehaviour {
 	[SerializeField] Transform playerSpawnPos = null;
 	[SerializeField] GameObject[] props = null;
+	[SerializeField] GameObject nextLevelTeleportShield = null;
 
 	[Header("Filled by script")]
 	[Space]
@@ -16,6 +18,7 @@ public class Level : MonoBehaviour {
 	[SerializeField] List<Transform> enemyPositions = null;
 
 	Enemy[] enemies;
+	int enemiesLeft;
 
 	public void InitLevel() {
 		foreach (var p in props) {
@@ -27,7 +30,9 @@ public class Level : MonoBehaviour {
 			GameObject go  = Instantiate(enemyPrefabs[i], enemyPositions[i].position, enemyPositions[i].rotation, transform);
 			go.name = enemyPositions[i].name.Substring(0, enemyPositions[i].name.Length - 4);
 			enemies[i] = go.GetComponent<Enemy>();
+			enemies[i].onDie += OnEnemyDie;
 		}
+		enemiesLeft = enemies.Length;
 
 		GameManager.Instance.player.OnEnterNewLevel(playerSpawnPos);
 
@@ -62,6 +67,15 @@ public class Level : MonoBehaviour {
 			GameObject go = Instantiate(enemyPrefabs[i], enemyPositions[i].position, enemyPositions[i].rotation, transform);
 			go.name = enemyPositions[i].name.Substring(0, enemyPositions[i].name.Length - 4);
 			enemies[i] = go.GetComponent<Enemy>();
+			enemies[i].onDie += OnEnemyDie;
+		}
+		enemiesLeft = enemies.Length;
+	}
+
+	void OnEnemyDie() {
+		--enemiesLeft;
+		if(enemiesLeft == 0 && nextLevelTeleportShield != null) {
+			nextLevelTeleportShield.gameObject.SetActive(false);
 		}
 	}
 

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 
 public class Enemy : MonoBehaviour
 {
+    public Action onDie;
+
     protected enum States { Idle, Chase, Attack, Escape, Dead }
 
     protected States _state = States.Idle;
@@ -132,8 +134,8 @@ public class Enemy : MonoBehaviour
         if (_curEscapeDuration <= 0f)
         {
             _myTransform.forward = -GetForward();
-            _navAgent.SetDestination(_myTransform.forward * Random.Range(_escapeDistanceMin, _escapeDistanceMax));
-            _curEscapeDuration = Random.Range(_escapeDurationMin, _escapeDurationMax) + Time.time;
+            _navAgent.SetDestination(_myTransform.forward * UnityEngine.Random.Range(_escapeDistanceMin, _escapeDistanceMax));
+            _curEscapeDuration = UnityEngine.Random.Range(_escapeDurationMin, _escapeDurationMax) + Time.time;
         }
         else if(_curEscapeDuration <= Time.time)
         {
@@ -144,6 +146,8 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        onDie?.Invoke();
+
         _animation.Die();
         _navAgent.ResetPath();
         _navAgent.velocity = Vector3.zero;

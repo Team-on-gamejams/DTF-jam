@@ -83,6 +83,10 @@ public class Health : MonoBehaviour {
 		}
 	}
 
+	public void ForceSetHp(float value) {
+		maxHits = currHit = value;
+	}
+
 	public void Init() {
 		currHit = maxHits;
 	}

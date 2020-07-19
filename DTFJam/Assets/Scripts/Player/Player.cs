@@ -75,7 +75,8 @@ public class Player : MonoBehaviour {
 		GameManager.Instance.isPlaying = false;
 		mover.OnDie();
 
-		Destroy(GameManager.Instance.ambient.gameObject);
+		if(GameManager.Instance.ambient != null)
+			Destroy(GameManager.Instance.ambient.gameObject);
 		AudioManager.Instance.Play(dieClip, channel: AudioManager.AudioChannel.Sound);
 		AudioSource analogNoiceas = AudioManager.Instance.PlayFaded(analogNoice, channel: AudioManager.AudioChannel.Sound);
 		analogNoiceas.volume = 0.7f;
