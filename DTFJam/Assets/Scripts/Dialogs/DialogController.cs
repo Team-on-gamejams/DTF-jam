@@ -56,15 +56,15 @@ public class DialogController : MonoBehaviour
         if (!isShowed)
             return;
 
-        if (Mouse.current.leftButton.wasPressedThisFrame || 
-            Mouse.current.rightButton.wasPressedThisFrame ||
-            Keyboard.current.anyKey.wasPressedThisFrame ||
-            Gamepad.current.buttonEast.wasPressedThisFrame ||
-            Gamepad.current.buttonNorth.wasPressedThisFrame ||
-            Gamepad.current.buttonSouth.wasPressedThisFrame ||
-            Gamepad.current.buttonWest.wasPressedThisFrame ||
-            Gamepad.current.leftShoulder.wasPressedThisFrame ||
-            Gamepad.current.rightShoulder.wasPressedThisFrame
+        if ((Mouse.current?.leftButton?.wasPressedThisFrame ?? false) || 
+            (Mouse.current?.rightButton?.wasPressedThisFrame ?? false) ||
+            (Keyboard.current?.anyKey?.wasPressedThisFrame ?? false) ||
+            (Gamepad.current?.buttonEast?.wasPressedThisFrame ?? false) ||
+            (Gamepad.current?.buttonNorth?.wasPressedThisFrame ?? false) ||
+            (Gamepad.current?.buttonSouth?.wasPressedThisFrame ?? false) ||
+            (Gamepad.current?.buttonWest?.wasPressedThisFrame ?? false) ||
+            (Gamepad.current?.leftShoulder?.wasPressedThisFrame ?? false) ||
+            (Gamepad.current?.rightShoulder?.wasPressedThisFrame ?? false)
             )
             _switchDialog = Next();
     }
