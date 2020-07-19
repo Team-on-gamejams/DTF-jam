@@ -33,23 +33,14 @@ public class MainMenuInGame : MonoBehaviour {
 	}
 
 	private void OnApplicationFocus(bool focus) {
-		if(cg.interactable)
+		if(focus && cg.interactable)
 			firstButton.Select();
 	}
 
 	public void NewGame() {
-		Debug.Log("Starting game");
-
-		float crossTime = 3.0f;
-
-		AudioManager.Instance.FadeVolume(GameManager.Instance.ambient, 0.0f, crossTime);
-		Destroy(GameManager.Instance.ambient.gameObject, crossTime + 1.0f);
-		GameManager.Instance.ambient = AudioManager.Instance.PlayFaded(battleAmbient, fadeTime: crossTime, channel: AudioManager.AudioChannel.Music);
-
 		LeanTweenEx.ChangeCanvasGroupAlpha(cg, 0.0f, 0.2f);
 		cg.blocksRaycasts = cg.interactable = false;
-
-		GameManager.Instance.isPlaying = true;
+		GameManager.Instance.player.dialog.StartDialogue(OnDialogueEnd);
 	}
 
 	public void ExitGame() {
@@ -59,6 +50,18 @@ public class MainMenuInGame : MonoBehaviour {
 #else
 		Application.Quit();
 #endif
+	}
+
+	void OnDialogueEnd() {
+		Debug.Log("Starting game");
+
+		float crossTime = 3.0f;
+
+		AudioManager.Instance.FadeVolume(GameManager.Instance.ambient, 0.0f, crossTime);
+		Destroy(GameManager.Instance.ambient.gameObject, crossTime + 1.0f);
+		GameManager.Instance.ambient = AudioManager.Instance.PlayFaded(battleAmbient, fadeTime: crossTime, channel: AudioManager.AudioChannel.Music);
+
+		GameManager.Instance.isPlaying = true;
 	}
 
 	void OnRespawnEnd() {
