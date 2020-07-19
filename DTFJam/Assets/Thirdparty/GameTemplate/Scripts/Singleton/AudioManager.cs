@@ -174,6 +174,8 @@ public class AudioManager : Singleton<AudioManager> {
 			float startVolume = audioSource.volume;
 
 			do {
+				if (audioSource == null)
+					yield break;
 				currTime += Time.unscaledDeltaTime;
 				audioSource.volume = Mathf.Lerp(startVolume, volume, currTime / time);
 				yield return null;
