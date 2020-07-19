@@ -98,7 +98,7 @@ public class Enemy : MonoBehaviour
         if (Vector3.Distance(_myTransform.position, _playerTransform.position) <= _weapon.attackRange)
         {
             _navAgent.ResetPath();
-            _rigidBody.velocity = Vector3.zero;
+            _navAgent.velocity = Vector3.zero;
             SwitchState(States.Attack);
             _attackEvent.Invoke();
         }
@@ -139,7 +139,6 @@ public class Enemy : MonoBehaviour
             _navAgent.ResetPath();
             SwitchState(States.Chase);
         }
-
     }
 
     private void PlayerSearch()
@@ -151,7 +150,6 @@ public class Enemy : MonoBehaviour
 
         foreach (Collider col in hitColliders)
         {
-            //_playerStats = col.GetComponent<CharacterStats>();
             _playerTransform = col.transform;
             _animation.playerTransform = _playerTransform;
             SwitchState(States.Chase);
@@ -171,34 +169,19 @@ public class Enemy : MonoBehaviour
     {
         if (_weapon.attackType == AttackType.Melee)
         {
-            Invoke("AttackStart", _weapon.prepareTime);
-            Invoke("EnableAttackCollider", _weapon.prepareTime);
+            Invoke("SetAnimAttack", _weapon.prepareTime);
         }
         else
+        {
+            SetAnimAttack();
             _weapon.StartCoroutine(_weapon.Shoot(_playerTransform.position));
+        }
 
-        _animation.anim.SetTrigger("IsAttack");
         _curAttackCD = _weapon.attackCD + Time.time;
     }
 
-    //public void EnableAttackCollider()
-    //{
-    //    _swordAttackBox.AttackStart();
-    //}
-
-    //public void DisableAttackCollider()
-    //{
-    //    _swordAttackBox.AttackEnd();
-    //}
-
-    //public void AttackStart()
-    //{
-    //    //isCurrentlyAttack = true;
-    //    _swordAttackBox.CheckHit();
-    //}
-
-    //public void AttackEnd()
-    //{
-    //    //isCurrentlyAttack = false;
-    //}
+    private void SetAnimAttack()
+    {
+        _animation.anim.SetTrigger("IsAttack");
+    }
 }
