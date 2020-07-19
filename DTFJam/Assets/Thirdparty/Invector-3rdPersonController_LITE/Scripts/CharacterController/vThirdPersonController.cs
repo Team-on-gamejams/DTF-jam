@@ -16,7 +16,7 @@ namespace Invector.vCharacterController {
 
 		public virtual void ControlLocomotionType() {
 			if (lockMovement) return;
-
+			
 			if (locomotionType.Equals(LocomotionType.FreeWithStrafe) && !isStrafing || locomotionType.Equals(LocomotionType.OnlyFree)) {
 				SetControllerMoveSpeed(freeSpeed);
 				SetAnimatorMoveSpeed(freeSpeed);

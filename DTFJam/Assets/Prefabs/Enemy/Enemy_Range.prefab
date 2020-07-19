@@ -129,6 +129,7 @@ MonoBehaviour:
   _bulletNumber: 3
   _delayBtwShots: 0.2
   _bulletSpeed: 10
+  _prepareTime: 0.5
   _bulletPrefab: {fileID: 9181584216080072729, guid: aa38b13e324be14438705d1460b32766,
     type: 3}
   _barrelTransform: {fileID: 5432092313813835147}
@@ -1564,7 +1565,7 @@ GameObject:
   - component: {fileID: 5432092313157067469}
   m_Layer: 0
   m_Name: EnemyBody
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2849,7 +2850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1012cc92a73f56e45b21f3e9d722da4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chaseSpeed: 3
+  _chaseSpeed: 4
   _searchRadius: 20
   _playerLayer:
     serializedVersion: 2
@@ -4078,6 +4079,7 @@ MonoBehaviour:
   _bulletNumber: 2
   _delayBtwShots: 0.2
   _bulletSpeed: 10
+  _prepareTime: 0.5
   _bulletPrefab: {fileID: 0}
   _barrelTransform: {fileID: 0}
 --- !u!1 &8294267366154573946

@@ -30,13 +30,12 @@ public class Enemy : MonoBehaviour
     private UnityAction _attackAction;
 
     // References
-    [Space]
-    [SerializeField] private DealDamageOnTriggerEnter _swordAttackBox;
     protected Rigidbody _rigidBody;
     protected Weapon _weapon;
     protected Transform _myTransform;
     protected Transform _playerTransform;
     protected NavMeshAgent _navAgent;
+    private EnemyAnimation _animation;
 
     private void Awake()
     {
@@ -48,6 +47,7 @@ public class Enemy : MonoBehaviour
         _rigidBody = GetComponentInChildren<Rigidbody>();
         _weapon = GetComponentInChildren<Weapon>();
         _navAgent = GetComponentInChildren<NavMeshAgent>();
+        _animation = GetComponentInChildren<EnemyAnimation>();
 
         _attackAction = new UnityAction(StartAttack);
         _attackEvent.AddListener(_attackAction);
@@ -55,6 +55,9 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GameManager.Instance.isPlaying == false)
+            return;
+
         PlayerSearch();
 
         switch (_state)
@@ -105,9 +108,6 @@ public class Enemy : MonoBehaviour
     {
         if (_curAttackCD <= Time.time)
         {
-            if(_weapon.attackType == AttackType.Melee)
-                DisableAttackCollider();
-
             if (Vector3.Distance(_myTransform.position, _playerTransform.position) > _weapon.attackRange)// && _weapon.curAttackNumber >= _weapon.attacksNumber)
             {
                 SwitchState(States.Chase);
@@ -147,12 +147,13 @@ public class Enemy : MonoBehaviour
         if (_playerTransform != null)
             return;
 
-        Collider[] hitColliders = Physics.OverlapSphere(_myTransform.position, _searchRadius, (int)Mathf.Log(_playerLayer.value, 2));
+        Collider[] hitColliders = Physics.OverlapSphere(_myTransform.position, _searchRadius, _playerLayer);
 
         foreach (Collider col in hitColliders)
         {
             //_playerStats = col.GetComponent<CharacterStats>();
             _playerTransform = col.transform;
+            _animation.playerTransform = _playerTransform;
             SwitchState(States.Chase);
             break;
         }
@@ -170,33 +171,34 @@ public class Enemy : MonoBehaviour
     {
         if (_weapon.attackType == AttackType.Melee)
         {
-            AttackStart();
-            EnableAttackCollider();
+            Invoke("AttackStart", _weapon.prepareTime);
+            Invoke("EnableAttackCollider", _weapon.prepareTime);
         }
         else
-            _weapon.StartCoroutine(_weapon.Shoot());
+            _weapon.StartCoroutine(_weapon.Shoot(_playerTransform.position));
 
+        _animation.anim.SetTrigger("IsAttack");
         _curAttackCD = _weapon.attackCD + Time.time;
     }
 
-    public void EnableAttackCollider()
-    {
-        _swordAttackBox.AttackStart();
-    }
+    //public void EnableAttackCollider()
+    //{
+    //    _swordAttackBox.AttackStart();
+    //}
 
-    public void DisableAttackCollider()
-    {
-        _swordAttackBox.AttackEnd();
-    }
+    //public void DisableAttackCollider()
+    //{
+    //    _swordAttackBox.AttackEnd();
+    //}
 
-    public void AttackStart()
-    {
-        //isCurrentlyAttack = true;
-        _swordAttackBox.CheckHit();
-    }
+    //public void AttackStart()
+    //{
+    //    //isCurrentlyAttack = true;
+    //    _swordAttackBox.CheckHit();
+    //}
 
-    public void AttackEnd()
-    {
-        //isCurrentlyAttack = false;
-    }
+    //public void AttackEnd()
+    //{
+    //    //isCurrentlyAttack = false;
+    //}
 }

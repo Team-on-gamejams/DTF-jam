@@ -97,6 +97,7 @@ MonoBehaviour:
   attackType: 0
   attackRange: 2
   attackCD: 1
+  prepareTime: 0.5
   _bulletNumber: 2
   _delayBtwShots: 0.2
   _bulletSpeed: 10
@@ -1391,17 +1392,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4069427863085784665}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1012cc92a73f56e45b21f3e9d722da4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chaseSpeed: 3
+  _chaseSpeed: 4
   _searchRadius: 20
   _playerLayer:
     serializedVersion: 2
     m_Bits: 512
-  _swordAttackBox: {fileID: 4069427862711562727}
+  _escapeDurationMin: 0
+  _escapeDurationMax: 0
+  _escapeDistanceMin: 0
+  _escapeDistanceMax: 0
 --- !u!1 &4069427863115249078
 GameObject:
   m_ObjectHideFlags: 0
@@ -2371,6 +2375,7 @@ GameObject:
   - component: {fileID: 4069427863610091196}
   - component: {fileID: 4069427863610091136}
   - component: {fileID: 1437001340}
+  - component: {fileID: 1047575315}
   m_Layer: 0
   m_Name: EnemyBody
   m_TagString: Player
@@ -2406,7 +2411,7 @@ Animator:
   m_GameObject: {fileID: 4069427863610091198}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 340f99b8334a14c4a8a01dce6e1e5348, type: 3}
-  m_Controller: {fileID: 9100000, guid: cbd1db45c75e5b948a5befe9ecb80421, type: 2}
+  m_Controller: {fileID: 9100000, guid: 00991d57ec38e5442aa55e52a7616751, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2529,6 +2534,28 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1047575315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4069427863610091198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a3b1cbfc187a340a79b3eed7ea2025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepSonds:
+  - {fileID: 8300000, guid: b5cbb9103584a024fb37e04d36e5f988, type: 3}
+  - {fileID: 8300000, guid: 5fef0709d3dfac2468c1ab5bdafa6d8e, type: 3}
+  - {fileID: 8300000, guid: 5df937b8e0e8afa46877f5d3e3583b6f, type: 3}
+  - {fileID: 8300000, guid: b8cd3cd30594ed849b934fe91ebb88dc, type: 3}
+  cc: {fileID: 4069427863610091196}
+  anim: {fileID: 4069427863610091139}
+  rb: {fileID: 4069427863610091138}
+  _swordAttackBox: {fileID: 4069427862711562727}
+  playerTransform: {fileID: 0}
 --- !u!1 &4069427863625445443
 GameObject:
   m_ObjectHideFlags: 0

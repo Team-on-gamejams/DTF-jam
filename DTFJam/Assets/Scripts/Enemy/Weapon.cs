@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
     public AttackType attackType;
     public float attackRange = 2f;
     public float attackCD = 1f;
+    public float prepareTime = .5f;
 
     [Header("Range Properties")]
     [SerializeField] private int _bulletNumber = 2;
@@ -18,8 +19,10 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject _bulletPrefab = null;
     [SerializeField] private Transform _barrelTransform = null;
 
-    public IEnumerator Shoot()
+    public IEnumerator Shoot(Vector3 playerPosition)
     {
+        yield return new WaitForSeconds(prepareTime);
+
         for (int i = 0; i < _bulletNumber; i++)
         {
             Vector3 rot = transform.rotation.eulerAngles;
@@ -27,6 +30,7 @@ public class Weapon : MonoBehaviour
             
             Bullet bullet = Instantiate(_bulletPrefab, _barrelTransform.position, Quaternion.Euler(rot)).GetComponent<Bullet>();
             bullet.speed = _bulletSpeed;
+            bullet.playerPosition = playerPosition;
 
             yield return new WaitForSeconds(_delayBtwShots);
         }
