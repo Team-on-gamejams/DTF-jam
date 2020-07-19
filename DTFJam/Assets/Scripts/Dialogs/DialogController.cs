@@ -81,6 +81,7 @@ public class DialogController : MonoBehaviour
             _text.maxVisibleCharacters = 1;
             _characterImage.sprite = _dialogs[_curDialogNumber].character;
             _text.text = _dialogs[_curDialogNumber].text;
+            _textName.text = _dialogs[_curDialogNumber].name;
 
             int delayCounter = 0;
 
