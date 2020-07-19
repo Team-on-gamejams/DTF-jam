@@ -126,10 +126,10 @@ MonoBehaviour:
   attackType: 1
   attackRange: 10
   attackCD: 1
+  prepareTime: 0.5
   _bulletNumber: 3
   _delayBtwShots: 0.2
   _bulletSpeed: 10
-  _prepareTime: 0.5
   _bulletPrefab: {fileID: 9181584216080072729, guid: aa38b13e324be14438705d1460b32766,
     type: 3}
   _barrelTransform: {fileID: 5432092313813835147}
@@ -2859,7 +2859,11 @@ MonoBehaviour:
   _escapeDurationMax: 3
   _escapeDistanceMin: 10
   _escapeDistanceMax: 20
-  _swordAttackBox: {fileID: 8294267365865190742}
+  _rigidBody: {fileID: 8294267364899545651}
+  _weapon: {fileID: 5432092313987684045}
+  _myTransform: {fileID: 8294267364899545614}
+  _navAgent: {fileID: 5432092313157067469}
+  _animation: {fileID: 0}
 --- !u!1 &8294267365476375828
 GameObject:
   m_ObjectHideFlags: 0
@@ -4076,10 +4080,10 @@ MonoBehaviour:
   attackType: 0
   attackRange: 2
   attackCD: 1
+  prepareTime: 0.5
   _bulletNumber: 2
   _delayBtwShots: 0.2
   _bulletSpeed: 10
-  _prepareTime: 0.5
   _bulletPrefab: {fileID: 0}
   _barrelTransform: {fileID: 0}
 --- !u!1 &8294267366154573946

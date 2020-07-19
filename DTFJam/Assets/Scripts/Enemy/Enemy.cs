@@ -30,25 +30,17 @@ public class Enemy : MonoBehaviour
     private UnityAction _attackAction;
 
     // References
-    protected Rigidbody _rigidBody;
-    protected Weapon _weapon;
-    protected Transform _myTransform;
-    protected Transform _playerTransform;
-    protected NavMeshAgent _navAgent;
-    private EnemyAnimation _animation;
+    [Header("Refs")]
+    [Space]
+    [SerializeField] Rigidbody _rigidBody;
+    [SerializeField] Weapon _weapon;
+    [SerializeField] Transform _myTransform;
+    [SerializeField] NavMeshAgent _navAgent;
+    [SerializeField] EnemyAnimation _animation;
+    Transform _playerTransform;
 
     private void Awake()
     {
-        foreach (Transform t in transform)
-        {
-            if (t.name == "EnemyBody")
-                _myTransform = t;
-        }
-        _rigidBody = GetComponentInChildren<Rigidbody>();
-        _weapon = GetComponentInChildren<Weapon>();
-        _navAgent = GetComponentInChildren<NavMeshAgent>();
-        _animation = GetComponentInChildren<EnemyAnimation>();
-
         _attackAction = new UnityAction(StartAttack);
         _attackEvent.AddListener(_attackAction);
     }
