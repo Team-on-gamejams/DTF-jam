@@ -226,7 +226,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: d7d2e17b10614ff4dac079c5e2f65f6e,
+  m_Motion: {fileID: -203655887218126122, guid: 837421cd287af744698b92a9f24d8c93,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -422,7 +422,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: RightArmLayer
     m_StateMachine: {fileID: 617393271814018039}
-    m_Mask: {fileID: 31900000, guid: d6fe6e3bfa3081246b75f8529d6726de, type: 2}
+    m_Mask: {fileID: 31900000, guid: e8121de0e8cbada4e986c95e4a52a884, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -18580,11 +18580,11 @@ AnimatorStateMachine:
   m_StateMachineTransitions:
   - first: {fileID: 0}
     second: []
+  - first: {fileID: 1107986396892164804}
+    second: []
   - first: {fileID: 1107006311954203734}
     second: []
   - first: {fileID: 1107444483346391506}
-    second: []
-  - first: {fileID: 1107986396892164804}
     second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -528, y: -204, z: 0}
@@ -19112,12 +19112,12 @@ AnimatorStateMachine:
   m_StateMachineTransitions:
   - first: {fileID: 0}
     second: []
-  - first: {fileID: 1107317655660455606}
-    second:
-    - {fileID: 1109702216339247894}
   - first: {fileID: 1107506582051915410}
     second:
     - {fileID: 1109589162062948926}
+  - first: {fileID: 1107317655660455606}
+    second:
+    - {fileID: 1109702216339247894}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -520, y: 90, z: 0}
   m_EntryPosition: {x: -528, y: 24, z: 0}
