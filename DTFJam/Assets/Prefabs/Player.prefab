@@ -3932,7 +3932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rageBuffs: {x: 1, y: 2}
-  dashStaminaPrice: 33
+  dashStaminaPrice: 50
   dieAnimationCount: 9
   cameraAnimsCount: 7
   dieClip: {fileID: 8300000, guid: 0290ef3606a62fa4ba1f0d193b823102, type: 3}
@@ -3985,12 +3985,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01472ab451717946a40e2bd16ea86b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  regenerationMultiplier: 0.5
+  regenerationMultiplier: 1
   minStamina: 0
   maxStamina: 100
   staminaIncreaseTimeout: 0.5
   staminaIncreaseTimeoutIfConsumeAll: 1
-  staminaIncreaseSpeed: 33
+  staminaIncreaseSpeed: 25
   barFirst: {fileID: 6404925567057265701}
   barSecond: {fileID: 6404925566692882598}
   firstBarTime: 0.2
