@@ -12,6 +12,8 @@ public class MainMenuInGame : MonoBehaviour {
 	[Header("Refs")]
 	[Space]
 	[SerializeField] Button firstButton;
+	[SerializeField] Button newGameBtn;
+	[SerializeField] Button continueGame;
 	[SerializeField] CanvasGroup cg;
 	[SerializeField] Image startFader;
 	[SerializeField] Animator animCamera;
@@ -58,6 +60,12 @@ public class MainMenuInGame : MonoBehaviour {
 
 	void OnDialogueEnd() {
 		Debug.Log("Starting game");
+
+		if (newGameBtn.gameObject.activeSelf) {
+			newGameBtn.gameObject.SetActive(false);
+			continueGame.gameObject.SetActive(true);
+			firstButton = continueGame;
+		}
 
 		float crossTime = 3.0f;
 

@@ -1,5 +1,42 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6527585297984473103
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f6f3f7c722b4544b97e3c75840aa33, type: 3}
+  m_Name: AutoExposure
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  filtering:
+    overrideState: 1
+    value: {x: 40.107758, y: 78.95856}
+  minLuminance:
+    overrideState: 1
+    value: 0.45
+  maxLuminance:
+    overrideState: 1
+    value: 5.32
+  keyValue:
+    overrideState: 1
+    value: 1
+  eyeAdaptation:
+    overrideState: 1
+    value: 0
+  speedUp:
+    overrideState: 1
+    value: 2
+  speedDown:
+    overrideState: 1
+    value: 1
 --- !u!114 &-6319290978485677008
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -59,7 +96,7 @@ MonoBehaviour:
     value: 0
   colorFilter:
     overrideState: 1
-    value: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
+    value: {r: 1, g: 1, b: 1, a: 1}
   hueShift:
     overrideState: 1
     value: 0
@@ -107,10 +144,10 @@ MonoBehaviour:
     value: {x: 1, y: 1, z: 1, w: 0}
   gamma:
     overrideState: 1
-    value: {x: 1, y: 0.8917289, z: 0.6046608, w: 0.17580143}
+    value: {x: 0.67408895, y: 0.7854902, z: 1, w: 0.17580143}
   gain:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 0.6806444, y: 0.7305571, z: 1, w: 0.4653567}
   masterCurve:
     overrideState: 1
     value:
@@ -1311,6 +1348,34 @@ MonoBehaviour:
       - 0.5
       - 0.5
       - 0.5
+--- !u!114 &-4236682103427522702
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 556797029e73b2347956b6579e77e05b, type: 3}
+  m_Name: DepthOfField
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  focusDistance:
+    overrideState: 1
+    value: 9
+  aperture:
+    overrideState: 1
+    value: 6.1
+  focalLength:
+    overrideState: 1
+    value: 77.8
+  kernelSize:
+    overrideState: 1
+    value: 0
 --- !u!114 &-4063321397257775903
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1352,11 +1417,11 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   dirtTexture:
-    overrideState: 1
+    overrideState: 0
     value: {fileID: 0}
     defaultState: 1
   dirtIntensity:
-    overrideState: 1
+    overrideState: 0
     value: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -1374,6 +1439,8 @@ MonoBehaviour:
   - {fileID: -4063321397257775903}
   - {fileID: 3039567401672932983}
   - {fileID: -6319290978485677008}
+  - {fileID: -6527585297984473103}
+  - {fileID: -4236682103427522702}
 --- !u!114 &3039567401672932983
 MonoBehaviour:
   m_ObjectHideFlags: 3
