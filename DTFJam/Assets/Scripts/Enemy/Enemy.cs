@@ -151,6 +151,7 @@ public class Enemy : MonoBehaviour
         _animation.Die();
         _navAgent.ResetPath();
         _navAgent.velocity = Vector3.zero;
+        GetComponentInChildren<Collider>().isTrigger = true;
         SwitchState(States.Dead);
         _canRotate = false;
     }

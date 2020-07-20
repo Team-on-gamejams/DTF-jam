@@ -108,6 +108,9 @@
 *.prefab            linguist-generated
 *.unity             linguist-generated
 *.blender filter=lfs diff=lfs merge=lfs -text
+<<<<<<< HEAD
 *.terrainlayer filter=lfs diff=lfs merge=lfs -text
 *.doe filter=lfs diff=lfs merge=lfs -text
 DTFJam/Assets/Santuary/Scenes/Sanctuary/LightmapSnapshot.asset filter=lfs diff=lfs merge=lfs -text
+=======
+>>>>>>> 44e69f6b41ce35081aea8bd3eb5d9c653499f79a

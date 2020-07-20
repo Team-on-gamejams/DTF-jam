@@ -72,7 +72,7 @@ public class Traps : MonoBehaviour
     {
         if(other.gameObject.layer == 9 || other.gameObject.layer == 10)
         {
-            if (_curDelay <= 0f)
+            if (_curDelay <= 0f && other.gameObject.layer == 9)
             {
                 _curDelay = _activationDelay + Time.time;
                 //AudioManager.Instance.Play(_prepareClip, channel: AudioManager.AudioChannel.Sound);
