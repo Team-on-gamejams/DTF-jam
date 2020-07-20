@@ -53,15 +53,7 @@ public class MainMenuInGame : MonoBehaviour {
 	}
 
 	public void StartGameOnNewLevel() {
-		float crossTime = 3.0f;
-
-		if(GameManager.Instance.ambient != null) {
-			AudioManager.Instance.FadeVolume(GameManager.Instance.ambient, 0.0f, crossTime);
-			Destroy(GameManager.Instance.ambient.gameObject, crossTime + 1.0f);
-		}
-		GameManager.Instance.ambient = AudioManager.Instance.PlayFaded(battleAmbient, fadeTime: crossTime, channel: AudioManager.AudioChannel.Music);
-
-		GameManager.Instance.isPlaying = true;
+		GameManager.Instance.player.dialog.StartDialogue(OnDialogueEnd);
 	}
 
 	void OnDialogueEnd() {
@@ -69,8 +61,10 @@ public class MainMenuInGame : MonoBehaviour {
 
 		float crossTime = 3.0f;
 
-		AudioManager.Instance.FadeVolume(GameManager.Instance.ambient, 0.0f, crossTime);
-		Destroy(GameManager.Instance.ambient.gameObject, crossTime + 1.0f);
+		if (GameManager.Instance.ambient != null) {
+			AudioManager.Instance.FadeVolume(GameManager.Instance.ambient, 0.0f, crossTime);
+			Destroy(GameManager.Instance.ambient.gameObject, crossTime + 1.0f);
+		}
 		GameManager.Instance.ambient = AudioManager.Instance.PlayFaded(battleAmbient, fadeTime: crossTime, channel: AudioManager.AudioChannel.Music);
 
 		GameManager.Instance.isPlaying = true;
