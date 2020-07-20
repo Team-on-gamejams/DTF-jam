@@ -63,6 +63,7 @@ public class DialogController : MonoBehaviour
         if ((Mouse.current?.leftButton?.wasPressedThisFrame ?? false) || 
             (Mouse.current?.rightButton?.wasPressedThisFrame ?? false) ||
             (Keyboard.current?.anyKey?.wasPressedThisFrame ?? false) ||
+            (Keyboard.current?.spaceKey?.wasPressedThisFrame ?? false) ||
             (Gamepad.current?.buttonEast?.wasPressedThisFrame ?? false) ||
             (Gamepad.current?.buttonNorth?.wasPressedThisFrame ?? false) ||
             (Gamepad.current?.buttonSouth?.wasPressedThisFrame ?? false) ||
