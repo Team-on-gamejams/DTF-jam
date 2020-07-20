@@ -292,7 +292,7 @@ MonoBehaviour:
       needSteamPush: 0
       needGoogleDricePush: 0
   - editorName: Local + Zip + itch.io
-    itchGameLink: teamon/gametemplate
+    itchGameLink: teamon/cyberloop
     builds:
     - outputRoot: Builds/
       middlePath: $NAME_$VERSION_$PLATFORM/$NAME_$VERSION/$NAME$EXECUTABLE
@@ -363,44 +363,6 @@ MonoBehaviour:
       needItchPush: 1
       itchChannel: osx-universal
       itchDirPath: $NAME_$VERSION_$PLATFORM
-      itchAddLastChangelogUpdateNameToVerison: 1
-      itchLastChangelogUpdateName: 
-      useGithubActions: 0
-      useUnityActions: 0
-      needGamejolthPush: 0
-      needSteamPush: 0
-      needGoogleDricePush: 0
-    - outputRoot: Builds/
-      middlePath: $NAME_$VERSION_$PLATFORM/
-      scriptingDefinySymbols: UNITY_POST_PROCESSING_STACK_V2;TMP_PRESENT;ARABSUPPORT_ENABLED
-      targetGroup: 13
-      target: 20
-      options: 8
-      isVirtualRealitySupported: 0
-      needZip: 1
-      compressDirPath: $NAME_$VERSION_$PLATFORM
-      needItchPush: 1
-      itchChannel: webgl
-      itchDirPath: $NAME_$VERSION_$PLATFORM
-      itchAddLastChangelogUpdateNameToVerison: 1
-      itchLastChangelogUpdateName: 
-      useGithubActions: 0
-      useUnityActions: 0
-      needGamejolthPush: 0
-      needSteamPush: 0
-      needGoogleDricePush: 0
-    - outputRoot: Builds/
-      middlePath: $NAME_$VERSION_$PLATFORM$EXECUTABLE
-      scriptingDefinySymbols: UNITY_POST_PROCESSING_STACK_V2;TMP_PRESENT;ARABSUPPORT_ENABLED
-      targetGroup: 7
-      target: 13
-      options: 8
-      isVirtualRealitySupported: 0
-      needZip: 0
-      compressDirPath: 
-      needItchPush: 1
-      itchChannel: android
-      itchDirPath: $NAME_$VERSION_$PLATFORM$EXECUTABLE
       itchAddLastChangelogUpdateNameToVerison: 1
       itchLastChangelogUpdateName: 
       useGithubActions: 0

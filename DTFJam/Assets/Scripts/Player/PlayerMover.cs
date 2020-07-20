@@ -94,6 +94,8 @@ public class PlayerMover : MonoBehaviour {
 		rb.velocity = Vector3.zero;
 		transform.position = startPos;
 
+		isCurrentlyAttack = isCurrentlyDashing = false;
+
 		LeanTween.delayedCall(0.2f, () => {
 			moveInput = Vector3.zero;
 		});
