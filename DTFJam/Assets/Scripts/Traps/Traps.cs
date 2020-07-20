@@ -55,7 +55,8 @@ public class Traps : MonoBehaviour
             
             foreach(Health h in _health)
             {
-                h.GetHit();
+                if(h != null)
+                    h.GetHit();
             }
 
             _health.Clear();
