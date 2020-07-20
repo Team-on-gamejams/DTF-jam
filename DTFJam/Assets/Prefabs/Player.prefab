@@ -917,7 +917,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -212.3, y: -26.699951}
+  m_AnchoredPosition: {x: -212.3, y: -26.699707}
   m_SizeDelta: {x: 228, y: 63}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &180918452878398959
@@ -1183,7 +1183,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.00037904314, y: -0.00024414062}
+  m_AnchoredPosition: {x: -0.00037904314, y: -0.00048828125}
   m_SizeDelta: {x: 192, y: 192}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &6404925565985744419
@@ -4455,7 +4455,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 212.3, y: -26.800049}
+  m_AnchoredPosition: {x: 212.3, y: -26.800293}
   m_SizeDelta: {x: 228, y: 63}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4014817895827582475
@@ -7366,11 +7366,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6404925566319977647}
     m_Modifications:
-    - target: {fileID: 2046199886917173132, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: m_padding
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2283265625102287155, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}
       propertyPath: m_Name
@@ -7486,22 +7481,6 @@ PrefabInstance:
       propertyPath: cameraAnimator
       value: 
       objectReference: {fileID: 6404925566682334350}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs.Array.data[2].text
-      value: "\u0427\u0442\u043E? \u041E \u0447\u0435\u043C \u0442\u044B? \u0414\u0430
-        \u0438 \u043A\u0442\u043E \u0442\u044B \u0432\u043E\u043E\u0431\u0449\u0435?"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: textTyping
-      value: 
-      objectReference: {fileID: 8300000, guid: de226e25959528e40862a6007042a1ad, type: 3}
-    - target: {fileID: 2283265625102287159, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 3797526069090707703, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}
       propertyPath: m_Material
@@ -7512,10 +7491,15 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 8507483251268885830, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
+    - target: {fileID: 5426993143011102820, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}
-      propertyPath: m_padding
-      value: 0
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5426993143011102820, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9059745573740006404, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}

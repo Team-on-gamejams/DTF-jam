@@ -146,7 +146,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 2.6
+  m_padding: 0
   m_canvasRenderer: {fileID: 9156354052526767904}
   m_TextComponent: {fileID: 6139460835359354243}
   m_materialReferenceIndex: 2
@@ -292,7 +292,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 2.6
+  m_padding: 0
   m_canvasRenderer: {fileID: 961957151460884780}
   m_TextComponent: {fileID: 2283265625219137630}
   m_materialReferenceIndex: 2
@@ -366,7 +366,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2283265625102287155}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -395,8 +395,8 @@ MonoBehaviour:
       \u0432\u043B\u0438\u043F, \u0442\u044B \u0432 \u043A\u0443\u0440\u0441\u0435?"
     character: {fileID: 21300000, guid: 660ae3c153f078f41a8c9709db7b48f7, type: 3}
   - name: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439"
-    text: "\u0427\u0442\u043E? \u041E \u0447\u0435\u043C \u0442\u044B? \u0418 \u043A\u0442\u043E
-      \u0442\u044B \u0432\u043E\u043E\u0431\u0449\u0435?"
+    text: "\u0427\u0442\u043E? \u041E \u0447\u0435\u043C \u0442\u044B? \u0414\u0430
+      \u0438 \u043A\u0442\u043E \u0442\u044B \u0432\u043E\u043E\u0431\u0449\u0435?"
     character: {fileID: 21300000, guid: c44353f6513f9034ab7cda52661a57bb, type: 3}
   - name: "\u0425\u0430\u043A\u0435\u0440"
     text: "\u041E-\u043E-\u043E, \u0432\u0438\u0436\u0443 \u0434\u0435\u043B\u0430
@@ -472,14 +472,12 @@ MonoBehaviour:
       \u0442\u0430\u043A \u0447\u0442\u043E \u0434\u0430\u0432\u0430\u0439 \u043A
       \u0434\u0435\u043B\u0443"
     character: {fileID: 21300000, guid: 2f77132f009339e4eb145cee0de942ab, type: 3}
-  _dialogs3: []
   _characterImage: {fileID: 2283265625591744690}
   _text: {fileID: 2283265625219137630}
   _textName: {fileID: 6139460835359354243}
   cameraAnimator: {fileID: 0}
   noiceClip: {fileID: 8300000, guid: d5b64b6e802031a46951a8e60acf59c3, type: 3}
-  textTyping: {fileID: 0}
-  bossClip: {fileID: 0}
+  textTyping: {fileID: 8300000, guid: de226e25959528e40862a6007042a1ad, type: 3}
   _textDelay: 3
 --- !u!1 &2283265625219137628
 GameObject:
