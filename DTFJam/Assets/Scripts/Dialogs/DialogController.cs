@@ -13,7 +13,6 @@ public class DialogController : MonoBehaviour
 {
     [SerializeField] private List<Dialog> _dialogs = new List<Dialog>();
     [SerializeField] private List<Dialog> _dialogs2 = new List<Dialog>();
-    [SerializeField] private List<Dialog> _dialogs3 = new List<Dialog>();
 
     [Space]
     [SerializeField] private Image _characterImage = null;
@@ -22,7 +21,6 @@ public class DialogController : MonoBehaviour
     [SerializeField] private Animator cameraAnimator;
     [SerializeField] private AudioClip noiceClip;
     [SerializeField] private AudioClip textTyping;
-    [SerializeField] private AudioClip bossClip;
     private int _curDialogNumber;
 
     [Header("Parameters")]
@@ -74,25 +72,19 @@ public class DialogController : MonoBehaviour
     }
 
     public void StartDialogue(Action onEndDialogue) {
-        if((currDialogId == 0 || currDialogId == 1) && GameManager.Instance.levelsManager.CurrLevel == 0) {
-            isShowed = true;
-            this.onEndDialogue = onEndDialogue;
-            StartCoroutine(MainCoroutine());
-        }
-       else if (GameManager.Instance.levelsManager.CurrLevel == 1) {
-            currDialogId = 2;
-            isShowed = true;
-            this.onEndDialogue = onEndDialogue;
-            StartCoroutine(MainCoroutine());
+        if(currDialogId >= 2 && GameManager.Instance.levelsManager.CurrLevel == 0) {
+            onEndDialogue?.Invoke();
         }
         else {
-            onEndDialogue?.Invoke();
+            isShowed = true;
+            this.onEndDialogue = onEndDialogue;
+            StartCoroutine(MainCoroutine());
         }
     }
 
     private IEnumerator MainCoroutine()
     {
-        List<Dialog> currDialog = GetDialog();
+        List<Dialog> currDialog = currDialogId == 0 ? _dialogs : _dialogs2;
 
         for (_curDialogNumber = 0; _curDialogNumber < currDialog.Count; _curDialogNumber++)
         {
@@ -114,9 +106,6 @@ public class DialogController : MonoBehaviour
                 LeanTween.delayedCall(1f, () => {
                     AudioManager.Instance.FadeVolume(source, 0.0f, 0.2f);
                 });
-            }
-            else if (_curDialogNumber == 0 && currDialogId == 2) {
-                AudioManager.Instance.PlayFaded(bossClip, fadeTime: 0.2f, channel: AudioManager.AudioChannel.Sound);
             }
 
             typing = AudioManager.Instance.PlayLoop(textTyping, channel: AudioManager.AudioChannel.Sound);
@@ -152,7 +141,7 @@ public class DialogController : MonoBehaviour
 
     private bool Next()
     {
-        List<Dialog> currDialog = GetDialog();
+        List<Dialog> currDialog = currDialogId == 0 ? _dialogs : _dialogs2;
       
         if (_curDialogNumber < currDialog.Count && _text.maxVisibleCharacters < currDialog[_curDialogNumber].text.Length)
         {
@@ -165,18 +154,6 @@ public class DialogController : MonoBehaviour
         {
             return true;
         }
-    }
-
-    List<Dialog> GetDialog() {
-        switch (currDialogId) {
-            case 0:
-                return _dialogs;
-            case 1:
-                return _dialogs2;
-            case 2:
-                return _dialogs3;
-        }
-        return _dialogs;
     }
 }
 

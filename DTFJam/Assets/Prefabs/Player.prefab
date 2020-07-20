@@ -3985,7 +3985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01472ab451717946a40e2bd16ea86b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  regenerationMultiplier: 1
+  regenerationMultiplier: 0.5
   minStamina: 0
   maxStamina: 100
   staminaIncreaseTimeout: 0.5
@@ -7366,16 +7366,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6404925566319977647}
     m_Modifications:
-    - target: {fileID: 1878959040312571277, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1878959040312571277, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2046199886917173132, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}
       propertyPath: m_padding
@@ -7493,16 +7483,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}
-      propertyPath: _dialogs3.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
       propertyPath: cameraAnimator
       value: 
       objectReference: {fileID: 6404925566682334350}
@@ -7517,149 +7497,6 @@ PrefabInstance:
       propertyPath: textTyping
       value: 
       objectReference: {fileID: 8300000, guid: de226e25959528e40862a6007042a1ad, type: 3}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: bossClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 3445331954a89664ba055d25205707d0, type: 3}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs3.Array.data[0].character
-      value: 
-      objectReference: {fileID: 21300000, guid: ecd3ab4a7564fec44afc0f13c69e375e,
-        type: 3}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs3.Array.data[0].text
-      value: "\u041D\u0435 \u0434\u0443\u043C\u0430\u043B, \u0447\u0442\u043E \u0442\u0435\u0431\u0435
-        \u0443\u0434\u0430\u0441\u0442\u0441\u044F \u0434\u043E\u0431\u0440\u0430\u0442\u044C\u0441\u044F
-        \u0434\u043E \u0441\u044E\u0434\u0430. \u041D\u043E \u044F \u0437\u0434\u0435\u0441\u044C
-        \u043A\u0430\u043A \u0440\u0430\u0437 \u043D\u0430 \u0442\u0430\u043A\u043E\u0439
-        \u0441\u043B\u0443\u0447\u0430\u0439."
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs3.Array.data[0].name
-      value: "\u0411\u043E\u0441\u0441"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs3.Array.data[1].name
-      value: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs3.Array.data[1].text
-      value: "\u0418 \u043A\u0442\u043E \u0436\u0435 \u0442\u044B \u0442\u0430\u043A\u043E\u0439?"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs3.Array.data[1].character
-      value: 
-      objectReference: {fileID: 21300000, guid: 2f77132f009339e4eb145cee0de942ab,
-        type: 3}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs3.Array.data[2].name
-      value: "\u0411\u043E\u0441\u0441"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs3.Array.data[2].text
-      value: "\u0420\u0430\u0437\u0432\u0435 \u043D\u0435 \u0432\u0441\u0451 \u0440\u0430\u0432\u043D\u043E
-        \u043E\u0442 \u0447\u044C\u0435\u0439 \u0440\u0443\u043A\u0438 \u0443\u043C\u0438\u0440\u0430\u0442\u044C?"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs3.Array.data[2].character
-      value: 
-      objectReference: {fileID: 21300000, guid: ecd3ab4a7564fec44afc0f13c69e375e,
-        type: 3}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.data[2].name
-      value: "\u0425\u0430\u043A\u0435\u0440"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.data[2].text
-      value: "\u0421\u043F\u043E\u043A\u043E\u0439\u043D\u043E, \u043E\u0431 \u044D\u0442\u043E\u043C
-        \u044F \u0438 \u0441\u043E\u0431\u0438\u0440\u0430\u044E\u0441\u044C \u0442\u0435\u0431\u0435
-        \u0440\u0430\u0441\u0441\u043A\u0430\u0437\u0430\u0442\u044C."
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.data[2].character
-      value: 
-      objectReference: {fileID: 21300000, guid: 660ae3c153f078f41a8c9709db7b48f7,
-        type: 3}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.data[3].name
-      value: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.data[3].text
-      value: "\u041D\u0435\u0442, \u0442\u044B \u043D\u0435 \u043F\u043E\u043D\u044F\u043B.
-        \u041C\u044B \u0441 \u0442\u043E\u0431\u043E\u0439 \u0440\u0430\u0437\u0433\u043E\u0432\u0430\u0440\u0438\u0432\u0430\u043B\u0438
-        \u043C\u0438\u043D\u0443\u0442\u0443 \u043D\u0430\u0437\u0430\u0434!"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.data[3].character
-      value: 
-      objectReference: {fileID: 21300000, guid: 2f77132f009339e4eb145cee0de942ab,
-        type: 3}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.data[4].name
-      value: "\u0425\u0430\u043A\u0435\u0440"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.data[4].text
-      value: "\u041E \u0447\u0451\u043C \u0442\u044B \u0447\u0451\u0440\u0442 \u043F\u043E\u0431\u0435\u0440\u0438?!
-        \u042F \u043F\u044B\u0442\u0430\u043B\u0441\u044F \u0441\u0432\u044F\u0437\u0430\u0442\u044C\u0441\u044F
-        \u0441 \u0442\u043E\u0431\u043E\u0439 \u0431\u043E\u043B\u044C\u0448\u0435
-        \u0447\u0430\u0441\u0430!"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.data[4].character
-      value: 
-      objectReference: {fileID: 21300000, guid: 660ae3c153f078f41a8c9709db7b48f7,
-        type: 3}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.data[5].name
-      value: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0433\u0435\u0440\u043E\u0439"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.data[5].text
-      value: "\u0423 \u043D\u0430\u0441 \u043D\u0435\u0442 \u0432\u0440\u0435\u043C\u0435\u043D\u0438,
-        \u043A\u0430\u043A \u0442\u044B \u0441\u0430\u043C \u043C\u043D\u0435 \u0441\u043A\u0430\u0437\u0430\u043B.
-        \u041D\u0443\u0436\u043D\u043E \u0434\u043E\u0431\u0440\u0430\u0442\u044C\u0441\u044F
-        \u0434\u043E \u0447\u0451\u0440\u0442\u043E\u0432\u043E\u0433\u043E \u0442\u0435\u0440\u043C\u0438\u043D\u0430\u043B\u0430."
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.data[5].character
-      value: 
-      objectReference: {fileID: 21300000, guid: 2f77132f009339e4eb145cee0de942ab,
-        type: 3}
-    - target: {fileID: 2283265625102287157, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: _dialogs2.Array.data[1].text
-      value: "\u041A\u0430\u043A\u043E\u0433\u043E? \u0427\u0442\u043E \u0441\u0435\u0439\u0447\u0430\u0441
-        \u043F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u043E?"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2283265625102287158, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2283265625102287159, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -7671,31 +7508,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3797526069090707703, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7042373060972801558, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 7042373060972801558, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: m_firstOverflowCharacterIndex
-      value: 21
-      objectReference: {fileID: 0}
-    - target: {fileID: 7042373060972801558, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7655781118203401677, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7655781118203401677, guid: 1fae5f2a82c7c304a9d8d59ea8506a11,
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
