@@ -115,3 +115,4 @@ DTFJam/Assets/Santuary/Scenes/Sanctuary/LightmapSnapshot.asset filter=lfs diff=l
 =======
 >>>>>>> 44e69f6b41ce35081aea8bd3eb5d9c653499f79a
 Screenshots/Post1/5.png filter=lfs diff=lfs merge=lfs -text
+*.docx filter=lfs diff=lfs merge=lfs -text
